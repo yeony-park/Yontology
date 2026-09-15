@@ -22,7 +22,11 @@ Use the provided issue forms and write all descriptions in English.
 
 ## Branches and Commits
 
-Use short kebab-case branch descriptions, such as `docs/update-skill-index` or `feat/add-review-skill`. Codex-created branches use the `codex/` prefix, such as `codex/setup-skill-collection`.
+Use `<type>/<short-kebab-case-description>` for branch names. Choose the type from `feat`, `fix`, `docs`, `style`, `refactor`, `test`, or `chore`, matching the commit types below.
+
+Examples: `docs/update-skill-index`, `feat/add-review-skill`, `chore/setup-skill-collection`.
+
+This convention applies to all contributors, including AI coding agents.
 
 Write commit messages and pull request titles in English using:
 
