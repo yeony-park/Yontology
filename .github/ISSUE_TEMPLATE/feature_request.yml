@@ -1,0 +1,44 @@
+name: "✨ Feature Request"
+description: Suggest a new skill or an improvement
+title: "[Feature]: "
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Write the issue title and body in English.
+        Please describe the problem you want to solve with the proposed skill or improvement.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "✨ Feature Description"
+      description: Describe the skill or improvement you are proposing.
+    validations:
+      required: true
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: "📌 Proposed Work"
+      description: Break the proposal down into concrete tasks when possible.
+      placeholder: |
+        - [ ] Task 1
+        - [ ] Task 2
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: "🎯 Expected Impact"
+      description: Explain who would benefit and what problem this solves.
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: "📎 References"
+      description: Add related skills, documentation, examples, or alternatives.

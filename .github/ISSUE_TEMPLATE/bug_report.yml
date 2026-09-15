@@ -1,0 +1,55 @@
+name: "🐛 Bug Report"
+description: Report incorrect skill instructions or unexpected behavior
+title: "[Bug]: "
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Write the issue title and body in English.
+        Please describe the problem with the skill or documentation.
+        Do not include API keys, tokens, personal data, or other sensitive information.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "🐛 Bug Description"
+      description: Describe what happened and how it affected you.
+    validations:
+      required: true
+
+  - type: input
+    id: location
+    attributes:
+      label: "📍 Location"
+      description: Which skill or document is affected?
+      placeholder: Path to the affected SKILL.md or documentation file
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "🔄 Steps to Reproduce"
+      description: Include the prompt, relevant instructions, and environment when applicable.
+      placeholder: |
+        1. Use the skill with ...
+        2. Follow the instruction ...
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "✅ Expected Behavior"
+      description: Describe what you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: "📸 Supporting Material"
+      description: Add relevant output, screenshots, or links.
