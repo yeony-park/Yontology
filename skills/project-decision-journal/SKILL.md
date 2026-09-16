@@ -7,7 +7,7 @@ description: Persist material project decisions and their reasoning as repositor
 
 Preserve the decision trail without interrupting the work that produced it.
 
-Resolve `~/OneDrive/Opsidian/Work/Documents` against the current user’s home before file access. In shell commands use `"$HOME/OneDrive/Opsidian/Work/Documents"`; in Python use `Path.home() / "OneDrive/Opsidian/Work/Documents"`. Expand paths before forming clickable links or Obsidian URIs. This directory replaces the previous `notes/` root; do not append another `notes/`.
+Resolve `~/OneDrive/Obsidian/Work/Documents` against the current user’s home before file access. In shell commands use `"$HOME/OneDrive/Obsidian/Work/Documents"`; in Python use `Path.home() / "OneDrive/Obsidian/Work/Documents"`. Expand paths before forming clickable links or Obsidian URIs. This directory replaces the previous `notes/` root; do not append another `notes/`.
 
 ## Decide Whether to Record
 
@@ -57,7 +57,7 @@ Use `Current conversation (no durable link)` when no durable source exists. Do n
 
 ## Optionally Maintain the Cross-Project Index
 
-If `~/OneDrive/Opsidian/Work/Documents` exists, offer to maintain `~/OneDrive/Opsidian/Work/Documents/Project Decision Index.md` for cross-project recall. Request the narrowest write permission before touching that path.
+If `~/OneDrive/Obsidian/Work/Documents` exists, offer to maintain `~/OneDrive/Obsidian/Work/Documents/Project Decision Index.md` for cross-project recall. Request the narrowest write permission before touching that path.
 
 Keep each entry compact: project, date, status, one-sentence decision, and a link to the repository ADR. Never copy the full ADR. If permission is denied, leave the repository record complete and do not write an alternate global index.
 

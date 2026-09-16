@@ -32,7 +32,7 @@ def main():
         target.symlink_to(source, target_is_directory=True)
         print(f"Installed {source.name}")
     print(f"Ready: {len(sources)} skills in {destination}. Keep this checkout in place.")
-    vault = Path.home() / "OneDrive/Opsidian/Work/Documents"
+    vault = Path.home() / "OneDrive/Obsidian/Work/Documents"
     print(f"Notes: {vault} ({'present' if vault.is_dir() else 'not present yet'})")
 
 

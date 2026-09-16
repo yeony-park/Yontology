@@ -8,7 +8,7 @@ description: Tutor users through a concrete source-code target such as an attach
 Act as a source-code reading tutor. Help the user trace and evaluate concrete
 code rather than merely paraphrasing syntax or expanding into a general lecture.
 
-Resolve `~/OneDrive/Opsidian/Work/Documents` against the current user’s home before file access. In shell commands use `"$HOME/OneDrive/Opsidian/Work/Documents"`; in Python use `Path.home() / "OneDrive/Opsidian/Work/Documents"`. Expand paths before forming clickable links or Obsidian URIs. This directory replaces the previous `notes/` root; do not append another `notes/`.
+Resolve `~/OneDrive/Obsidian/Work/Documents` against the current user’s home before file access. In shell commands use `"$HOME/OneDrive/Obsidian/Work/Documents"`; in Python use `Path.home() / "OneDrive/Obsidian/Work/Documents"`. Expand paths before forming clickable links or Obsidian URIs. This directory replaces the previous `notes/` root; do not append another `notes/`.
 
 ## Boundaries
 
@@ -109,7 +109,7 @@ instead of opening a theory branch inside this skill.
 Always use these paths regardless of the current repository:
 
 ```text
-~/OneDrive/Opsidian/Work/Documents/
+~/OneDrive/Obsidian/Work/Documents/
 ├── code-reviews/             # code-review-tutor writes here
 ├── concepts/                # read/link-only; concept-tutor writes here
 └── Code Learning Index.md   # code-review-tutor owns only `## 코드 리뷰`

@@ -35,10 +35,10 @@ python3 scripts/install_skills.py
 
 ## OneDrive 노트 위치
 
-모든 Mac에서 다음 경로를 사용합니다. `Opsidian`은 지정한 실제 폴더명입니다.
+모든 Mac에서 다음 경로를 사용합니다. `Obsidian`은 지정한 실제 폴더명입니다.
 
 ```text
-~/OneDrive/Opsidian/Work/Documents/
+~/OneDrive/Obsidian/Work/Documents/
 ├── concepts/
 ├── code-reviews/
 ├── research-study/
@@ -51,7 +51,7 @@ python3 scripts/install_skills.py
 
 기존 보관함의 **`notes/` 안에 있는 내용**을 위 `Documents/` 바로 아래로 옮깁니다. `Documents/notes/`로 한 단계 더 넣지 않습니다. Obsidian에서는 `Documents/`를 보관함으로 열거나 이를 포함하는 기존 보관함에서 노트 링크 기준을 확인합니다. 설치 도구는 노트를 옮기거나 빈 OneDrive 폴더를 만들지 않습니다. 먼저 각 Mac에서 OneDrive가 동기화한 실제 폴더를 이 경로로 접근할 수 있게 설정하세요.
 
-`~`는 현재 사용자의 홈이므로 사용자명이 달라도 사용할 수 있습니다. 셸에서는 `"$HOME/OneDrive/Opsidian/Work/Documents"`, Python에서는 `Path.home() / "OneDrive/Opsidian/Work/Documents"`로 해석합니다. 따옴표 안의 `"~/..."`는 셸에서 홈으로 확장되지 않습니다.
+`~`는 현재 사용자의 홈이므로 사용자명이 달라도 사용할 수 있습니다. 셸에서는 `"$HOME/OneDrive/Obsidian/Work/Documents"`, Python에서는 `Path.home() / "OneDrive/Obsidian/Work/Documents"`로 해석합니다. 따옴표 안의 `"~/..."`는 셸에서 홈으로 확장되지 않습니다.
 
 복습을 이어가려면 노트뿐 아니라 `learning-tutor/state.json`과 세션 기록도 함께 옮기세요. 학습을 시작하기 전에 동기화를 완료하고, 두 Mac에서 동시에 복습 상태를 수정하지 마세요. 기존 노트의 절대 파일 링크·Obsidian URI, 문제 카드의 `source`, 논문 인덱스의 PDF 경로는 이동 시 새 위치로 갱신해야 합니다. 설치 도구는 기존 노트 내용을 수정하지 않습니다.
 

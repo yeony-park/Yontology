@@ -8,7 +8,7 @@ description: Research and teach standalone technical concepts, keywords, languag
 Teach theory as an evidence-backed, reusable body of knowledge. Keep the lesson
 independent of any one codebase unless a project example materially clarifies it.
 
-Resolve `~/OneDrive/Opsidian/Work/Documents` against the current user’s home before file access. In shell commands use `"$HOME/OneDrive/Opsidian/Work/Documents"`; in Python use `Path.home() / "OneDrive/Opsidian/Work/Documents"`. Expand paths before forming clickable links or Obsidian URIs. This directory replaces the previous `notes/` root; do not append another `notes/`.
+Resolve `~/OneDrive/Obsidian/Work/Documents` against the current user’s home before file access. In shell commands use `"$HOME/OneDrive/Obsidian/Work/Documents"`; in Python use `Path.home() / "OneDrive/Obsidian/Work/Documents"`. Expand paths before forming clickable links or Obsidian URIs. This directory replaces the previous `notes/` root; do not append another `notes/`.
 
 ## Boundaries
 
@@ -69,7 +69,7 @@ headline numbers.
 Always use these fixed paths regardless of the current repository:
 
 ```text
-~/OneDrive/Opsidian/Work/Documents/
+~/OneDrive/Obsidian/Work/Documents/
 ├── concepts/                 # concept-tutor owns these notes
 ├── code-reviews/             # read/link-only here
 └── Code Learning Index.md    # concept-tutor owns only `## 개념`
@@ -115,7 +115,7 @@ obsidian://open?path=<percent-encoded-absolute-note-path>
 ```
 
 If Obsidian cannot resolve it, tell the user to open
-`~/OneDrive/Opsidian/Work/Documents` once with **Open folder as vault**.
+`~/OneDrive/Obsidian/Work/Documents` once with **Open folder as vault**.
 
 ## Continue the Lesson
 
