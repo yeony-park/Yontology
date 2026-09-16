@@ -48,7 +48,11 @@ Resolve this SKILL.md through any symlinks to find the Yontology checkout (the p
    On first use in every answer and note, write an established full term before
    its abbreviation, for example `Mixture-of-Experts (MoE)` and
    `Feed-Forward Network (FFN)`; use the abbreviation alone afterward.
-2. **범위와 비범위**: State what the concept includes and does not solve.
+   For an acronym-focused lesson, include the English expansion and Korean name
+   in each note's title and first definition. When the user prefers acronym-first
+   notation, use `SFT (Supervised Fine-Tuning, 지도 미세조정)` instead. Put common
+   Korean translations in aliases without claiming a single official translation.
+2. **적용 범위와 한계**: State what the concept includes and does not solve.
 3. **작동 원리**: Explain the causal sequence, not only terminology.
 4. **헷갈리는 개념과 비교**: Contrast the closest alternative or homonym.
 5. **발전 과정**: Include only when history, standards, or a paper lineage
@@ -63,6 +67,23 @@ Use equations, tables, or a tiny example only when they make the mechanism more
 precise. For paper comparisons, report model or system scale, experimental
 conditions, publication status, and the metric denominator needed to interpret
 headline numbers.
+
+### Structured Explanations
+
+- Use descriptive subsections, numbered causal steps, and comparison tables so
+  the reader can distinguish inputs, outputs, assumptions, and tradeoffs.
+- Include a fenced `mermaid` diagram in notes about multi-step mechanisms,
+  training loops, architecture, or concept relationships when it clarifies the
+  explanation. Keep it compatible with Obsidian and explain it in prose too.
+- Label arrows by their meaning where needed. Distinguish data flow, parameter
+  updates, containment, and optional combinations; do not draw different design
+  axes as a mandatory sequence or imply that alternatives must all be used.
+- Define symbols beside useful equations and include a small worked example.
+  Skip decorative diagrams and equations that do not improve understanding.
+- For an in-depth note, provide a short primary-source reading list: official
+  documentation plus original papers where relevant, with reading order, the
+  section to read, and why it helps. Prefer relevant evidence over link counts;
+  distinguish paper versions and do not imply peer review from arXiv hosting.
 
 ## Store Canonical Notes
 
@@ -90,6 +111,9 @@ meaningful concept.
 - For a family of papers or related mechanisms, prefer one non-duplicative
   umbrella note that links existing focused notes; split separate meanings only
   when each needs an independent definition, mechanism, or review schedule.
+  Honor an explicit request for separate concept notes. Keep the umbrella as a
+  comparison and navigation page, move detailed explanations into the focused
+  notes, and preserve prior learning history and relevant source links.
 - If the same spelling names different concepts, keep separate qualified notes
   and explain the distinction instead of merging them.
 - Add bidirectional wikilinks to genuinely related concept notes.
@@ -120,9 +144,10 @@ If Obsidian cannot resolve it, tell the user to open
 ## Continue the Lesson
 
 Offer at most three adjacent concepts only when a next step is useful. Keep each
-choice theory-focused and explain why it follows. A request tied back to a
-specific source target returns to `code-review-tutor` rather than growing a
-code-analysis branch here.
+choice as a concrete example question the user can ask, and explain why it
+follows. Include these questions after reporting saved note links. A request tied
+back to a specific source target returns to `code-review-tutor` rather than
+growing a code-analysis branch here.
 
 ## Completion Check
 
@@ -136,3 +161,5 @@ Before ending, verify that:
 - Only `concepts/` and the index's `## 개념` section were changed, or no files
   were changed when persistence was declined.
 - Related notes are linked without manufacturing relationships.
+- Acronym expansions and Korean names are present for acronym-focused lessons;
+  useful diagrams, reading guidance, and follow-up question examples are included.

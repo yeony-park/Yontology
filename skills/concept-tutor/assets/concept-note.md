@@ -16,8 +16,11 @@ status: evergreen
 
 <!-- On first use, write full terms before abbreviations: e.g.
 Mixture-of-Experts (MoE), Feed-Forward Network (FFN). -->
+<!-- For acronym-focused notes, include the English expansion and Korean name
+in the title and definition. Honor requested acronym-first notation, e.g.
+SFT (Supervised Fine-Tuning, 지도 미세조정). Add common translations to aliases. -->
 
-## 범위와 비범위
+## 적용 범위와 한계
 
 - 포함: {{included_scope}}
 - 포함하지 않음: {{excluded_scope}}
@@ -29,6 +32,11 @@ Mixture-of-Experts (MoE), Feed-Forward Network (FFN). -->
 ## 작동 원리
 
 {{causal_mechanism}}
+
+<!-- For a multi-step mechanism, training loop, architecture, or concept relation,
+add an Obsidian-compatible fenced mermaid diagram plus a prose explanation.
+Distinguish inputs, outputs, frozen/trainable parts, and optional paths as relevant.
+Define equation symbols and use a small worked example when it adds clarity. -->
 
 ## 헷갈리는 개념과 비교
 
@@ -65,6 +73,10 @@ Mixture-of-Experts (MoE), Feed-Forward Network (FFN). -->
 ## 근거 자료
 
 - [{{primary_source_title}}]({{verified_url}}) — {{relevant_section_and_version}}
+
+<!-- For in-depth notes, order the primary sources from introductory to advanced;
+say which section to read and why. Include original papers and official docs as
+relevant, distinguish versions, and avoid padding the list with redundant links. -->
 
 ## 근거 상태
 
