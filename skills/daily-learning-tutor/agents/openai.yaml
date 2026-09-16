@@ -1,0 +1,4 @@
+interface:
+  display_name: "Daily Learning Tutor"
+  short_description: "Run strict daily concept recall with spaced review"
+  default_prompt: "Use $daily-learning-tutor to start today’s strict concept review session."

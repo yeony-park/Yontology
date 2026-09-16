@@ -1,0 +1,4 @@
+interface:
+  display_name: "논문 학습 튜터"
+  short_description: "PDF 논문을 원문 보존하며 문단별로 함께 공부하는 튜터"
+  default_prompt: "Use $research-study to study this PDF paragraph by paragraph with the original text, Korean translation, background context, terminology, and references."

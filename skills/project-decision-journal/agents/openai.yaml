@@ -1,0 +1,6 @@
+interface:
+  display_name: "Project Decision Journal"
+  short_description: "Preserve material decisions, rationale, and tradeoffs"
+  default_prompt: "Use $project-decision-journal to record this confirmed project decision and update its decision index."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Define Project"
+  short_description: "Turn vague project ideas into approved PRDs"
+  default_prompt: "Use $define-project to clarify this project idea into a reviewed PRD before implementation."

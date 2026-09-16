@@ -1,0 +1,138 @@
+---
+name: concept-tutor
+description: Research and teach standalone technical concepts, keywords, language or runtime mechanisms, design patterns, architecture principles, standards, protocols, and research topics from verified primary sources, then create or reuse a canonical Obsidian Markdown learning note. Use when the user asks what a concept means, wants a comparison, historical development, tradeoffs, or an official-document or paper-based synthesis without a concrete code target. Do not use when the question is anchored to an attached snippet, file, line range, symbol, or repository location and asks how that code behaves; route that request to code-review-tutor.
+---
+
+# Concept Tutor
+
+Teach theory as an evidence-backed, reusable body of knowledge. Keep the lesson
+independent of any one codebase unless a project example materially clarifies it.
+
+Resolve `~/OneDrive/Opsidian/Work/Documents` against the current user’s home before file access. In shell commands use `"$HOME/OneDrive/Opsidian/Work/Documents"`; in Python use `Path.home() / "OneDrive/Opsidian/Work/Documents"`. Expand paths before forming clickable links or Obsidian URIs. This directory replaces the previous `notes/` root; do not append another `notes/`.
+
+## Boundaries
+
+- Research, explain, and maintain learning notes by default. Do not edit
+  production code unless the user separately asks for implementation.
+- If the user explicitly asks not to save or update notes, teach only: skip all
+  vault and index writes, skip persistence-only completion checks, and report
+  that nothing was written.
+- Match the user's language; default to Korean when the user writes in Korean.
+- Separate source-confirmed facts from interpretation or project-specific
+  inference. Label the latter `추정` and state what would confirm it.
+- Resolve a standalone concept here even if it arose during a code review. If
+  the user instead asks how a resolvable source target uses the concept, hand
+  the request to `code-review-tutor` with that target intact.
+- Never turn a product choice into an accepted decision merely because it was
+  used as an example. Preserve `확정`, `후보`, and `미정` boundaries.
+
+## Start a Lesson
+
+1. Identify the requested concept and intended depth. If an acronym has several
+   plausible technical meanings that would change the answer, disambiguate it
+   before writing a canonical note.
+2. Search existing concept-note `title` and `aliases` before creating anything.
+   Reuse the canonical note when the meaning matches; never fork a synonym into
+   a duplicate file.
+3. Read [references/source-policy.md](references/source-policy.md) completely,
+   then research the concept from primary sources. Use current browsing for
+   claims that may have changed.
+4. Determine the concept boundary, causal mechanism, nearest confusing concept,
+   tradeoffs, failure modes, and a way to verify or observe it.
+5. Teach first, then create or update the canonical Markdown note and index
+   unless the user opted out of persistence.
+
+## Teach in This Order
+
+1. **한 줄 정의**: Give the shortest accurate explanation.
+   On first use in every answer and note, write an established full term before
+   its abbreviation, for example `Mixture-of-Experts (MoE)` and
+   `Feed-Forward Network (FFN)`; use the abbreviation alone afterward.
+2. **범위와 비범위**: State what the concept includes and does not solve.
+3. **작동 원리**: Explain the causal sequence, not only terminology.
+4. **헷갈리는 개념과 비교**: Contrast the closest alternative or homonym.
+5. **발전 과정**: Include only when history, standards, or a paper lineage
+   matters; avoid inventing a single linear lineage for branching research.
+6. **장단점과 실패 양상**: State costs, assumptions, limits, and where a claim
+   stops generalizing.
+7. **적용과 검증**: Give a small example or an observable test without turning
+   an unchosen project design into a decision.
+8. **근거 자료**: Cite the exact official section, standard, or original paper.
+
+Use equations, tables, or a tiny example only when they make the mechanism more
+precise. For paper comparisons, report model or system scale, experimental
+conditions, publication status, and the metric denominator needed to interpret
+headline numbers.
+
+## Store Canonical Notes
+
+Always use these fixed paths regardless of the current repository:
+
+```text
+~/OneDrive/Opsidian/Work/Documents/
+├── concepts/                 # concept-tutor owns these notes
+├── code-reviews/             # read/link-only here
+└── Code Learning Index.md    # concept-tutor owns only `## 개념`
+```
+
+Request the narrowest permission required to write there. If permission is
+denied, do not silently write to a project-local fallback or claim persistence.
+
+### Create or Reuse a Concept Note
+
+Use [assets/concept-note.md](assets/concept-note.md) and one canonical file per
+meaningful concept.
+
+- Name the file with a stable, established lowercase kebab-case slug.
+- Normalize established Korean and English names under `aliases`.
+- If an existing title or alias has the same meaning, update that file while
+  preserving prior correct material and learning history.
+- For a family of papers or related mechanisms, prefer one non-duplicative
+  umbrella note that links existing focused notes; split separate meanings only
+  when each needs an independent definition, mechanism, or review schedule.
+- If the same spelling names different concepts, keep separate qualified notes
+  and explain the distinction instead of merging them.
+- Add bidirectional wikilinks to genuinely related concept notes.
+- Use vault-relative wikilinks for links stored between shared notes. Expand home-relative paths only for file access and chat links, so another Mac does not inherit this Mac's username.
+- A code source, project example, and code-review backlink are optional. When a
+  code-review handoff supplies them, add them under `프로젝트·코드 연결` and
+  link the concept note back to the review.
+- Record verified source URLs and relevant sections. Write `근거 확인 보류` plus
+  a concrete TODO when primary evidence cannot be reached.
+
+### Maintain the Shared Index
+
+Use [assets/index.md](assets/index.md) if the index is absent. Add or update one
+entry in `## 개념` and preserve `## 코드 리뷰` verbatim. Never duplicate an
+entry when a note is refreshed.
+
+### Report Note Links
+
+After writing, report clickable absolute Markdown paths and an Obsidian URI:
+
+```text
+obsidian://open?path=<percent-encoded-absolute-note-path>
+```
+
+If Obsidian cannot resolve it, tell the user to open
+`~/OneDrive/Opsidian/Work/Documents` once with **Open folder as vault**.
+
+## Continue the Lesson
+
+Offer at most three adjacent concepts only when a next step is useful. Keep each
+choice theory-focused and explain why it follows. A request tied back to a
+specific source target returns to `code-review-tutor` rather than growing a
+code-analysis branch here.
+
+## Completion Check
+
+Before ending, verify that:
+
+- The answer covers definition, boundary, mechanism, and tradeoff.
+- Claims are backed by verified primary sources at the right scope.
+- Facts, inference, and unchosen project options are distinguishable.
+- The canonical note was reused by title or alias when appropriate, unless the
+  user opted out of persistence.
+- Only `concepts/` and the index's `## 개념` section were changed, or no files
+  were changed when persistence was declined.
+- Related notes are linked without manufacturing relationships.

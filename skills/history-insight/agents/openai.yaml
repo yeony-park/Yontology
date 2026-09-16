@@ -1,0 +1,4 @@
+interface:
+  display_name: "History Insight"
+  short_description: "세션 로그를 빠짐없이 분석해 반복 패턴과 스킬 후보를 찾습니다"
+  default_prompt: "Use $history-insight to analyze my Claude Code sessions and surface evidence-backed workflow insights."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Session Analyzer"
+  short_description: "스킬 실행 흔적을 스펙과 비교해 검증 보고서를 만듭니다"
+  default_prompt: "Use $session-analyzer to compare this session trace with the target SKILL.md and report Expected vs Actual."

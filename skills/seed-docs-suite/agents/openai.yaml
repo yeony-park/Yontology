@@ -1,0 +1,4 @@
+interface:
+  display_name: "Seed Docs Suite"
+  short_description: "Generate a traceable PRD and delivery document suite"
+  default_prompt: "Use $seed-docs-suite to create a traceable PRD and complete docs suite from the approved Seed."
