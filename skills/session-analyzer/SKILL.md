@@ -7,6 +7,8 @@ description: 완료된 Claude Code 또는 Codex 세션 trace를 명시적으로 
 
 스킬 사양에서 검증 가능한 기대치를 추출하고, 선택된 세션 trace의 직접 증거와 대조하라. 행동 준수와 결과 품질을 분리하고 관측 한계를 숨기지 마라.
 
+Resolve this SKILL.md through any symlinks to find the Yontology checkout (the parent of `skills/`). Before accessing notes or session data, run `python3 <checkout>/scripts/yontology_paths.py` and use the returned absolute paths. It reads that checkout’s `.env`, independently of the current working directory. `$YONTOLOGY_NOTES_DIR` below denotes the resolved value, not an automatically exported shell variable. Use the returned path for file access and chat links; keep links between notes vault-relative. Do not execute `.env` as shell code or fall back to a previous machine’s path.
+
 ## 범위 계약
 
 - 대상 `SKILL.md`, acceptance criteria, session trace를 현재 작업에서 사용자가 첨부·선택·정확한 경로 또는 thread ID로 명시한 것만 사용하라. 사용자가 `현재 세션`을 말하면 이 스킬의 resolver로 정확한 current/root thread를 찾고 최신 mtime 파일을 추측하지 마라.
@@ -62,7 +64,7 @@ python3 scripts/normalize_trace.py \
   --summary "$RUN_DIR/trace-summary.json"
 ```
 
-- current Codex thread는 `CODEX_THREAD_ID`와 read-only state database의 `threads.rollout_path`로 해결하라. child에서 호출했다면 spawn edge를 따라 root로 올라가라.
+- current Codex thread는 `CODEX_THREAD_ID`와 설정된 `YONTOLOGY_CODEX_DIR`의 read-only state database의 `threads.rollout_path`로 해결하라. child에서 호출했다면 spawn edge를 따라 root로 올라가라.
 - Codex child trace의 fork된 ancestor history와 response/event 복제를 stable event/call/turn key로 dedupe하라. Claude main/subagent stream은 서로 다른 stream으로 유지하되 UUID/tool ID 중복을 집계에서 제거하라.
 - call과 output을 `call_id`로 결합하라. 수백 MB trace를 전체 메모리에 올리는 `json.load`, `jq -s`, 전체 문자열 read를 사용하지 마라.
 - 불완전 마지막 JSONL line은 content hash만 남기고 제외하라. snapshot이 바뀌거나 malformed/unknown event가 있으면 coverage gap으로 유지하라.

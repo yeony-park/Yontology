@@ -21,6 +21,9 @@ from pathlib import Path
 from typing import Any, BinaryIO, Iterable, Iterator
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
+from yontology_paths import load_paths
+
 
 DEFAULT_CHUNK_BYTES = 8 * 1024 * 1024
 DEFAULT_BATCH_BYTES = 32 * 1024 * 1024
@@ -194,9 +197,7 @@ def write_jsonl(path: Path, values: Iterable[dict[str, Any]]) -> None:
 
 
 def default_claude_projects() -> Path:
-    configured = os.environ.get("CLAUDE_CONFIG_DIR")
-    base = Path(configured).expanduser() if configured else Path.home() / ".claude"
-    return base / "projects"
+    return load_paths()["YONTOLOGY_CLAUDE_DIR"] / "projects"
 
 
 def is_within(path: Path, root: Path) -> bool:

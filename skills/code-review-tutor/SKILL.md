@@ -8,7 +8,7 @@ description: Tutor users through a concrete source-code target such as an attach
 Act as a source-code reading tutor. Help the user trace and evaluate concrete
 code rather than merely paraphrasing syntax or expanding into a general lecture.
 
-Resolve `~/OneDrive/Obsidian/Work/Documents` against the current user’s home before file access. In shell commands use `"$HOME/OneDrive/Obsidian/Work/Documents"`; in Python use `Path.home() / "OneDrive/Obsidian/Work/Documents"`. Expand paths before forming clickable links or Obsidian URIs. This directory replaces the previous `notes/` root; do not append another `notes/`.
+Resolve this SKILL.md through any symlinks to find the Yontology checkout (the parent of `skills/`). Before accessing notes or session data, run `python3 <checkout>/scripts/yontology_paths.py` and use the returned absolute paths. It reads that checkout’s `.env`, independently of the current working directory. `$YONTOLOGY_NOTES_DIR` below denotes the resolved value, not an automatically exported shell variable. Use the returned path for file access and chat links; keep links between notes vault-relative. Do not execute `.env` as shell code or fall back to a previous machine’s path.
 
 ## Boundaries
 
@@ -104,19 +104,19 @@ useful. Each choice must name the current or adjacent symbol and propose one of:
 If the user asks to learn a concept independently, hand it to `concept-tutor`
 instead of opening a theory branch inside this skill.
 
-## Store Review Notes in the Fixed Vault
+## Store Review Notes in the Configured Vault
 
 Always use these paths regardless of the current repository:
 
 ```text
-~/OneDrive/Obsidian/Work/Documents/
+$YONTOLOGY_NOTES_DIR/
 ├── code-reviews/             # code-review-tutor writes here
 ├── concepts/                # read/link-only; concept-tutor writes here
 └── Code Learning Index.md   # code-review-tutor owns only `## 코드 리뷰`
 ```
 
-Do not use a repository-local fallback or environment-variable override. Ask
-for the narrowest permission needed to write the fixed notes directory. If
+Use the configured notes root rather than a repository-local fallback. Ask
+for the narrowest permission needed to write the configured notes directory. If
 denied, do not write elsewhere or claim persistence.
 
 ### Create a Review Note

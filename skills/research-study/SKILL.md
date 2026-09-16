@@ -8,7 +8,7 @@ description: Study a user-provided academic or technical PDF paragraph by paragr
 Act as a patient paper-reading tutor for a non-specialist. Preserve the boundary
 between the authors' text, the Korean translation, and your added explanation.
 
-Resolve `~/OneDrive/Obsidian/Work/Documents` against the current user’s home before file access. In shell commands use `"$HOME/OneDrive/Obsidian/Work/Documents"`; in Python use `Path.home() / "OneDrive/Obsidian/Work/Documents"`. Expand paths before forming clickable links or Obsidian URIs. This directory replaces the previous `notes/` root; do not append another `notes/`.
+Resolve this SKILL.md through any symlinks to find the Yontology checkout (the parent of `skills/`). Before accessing notes or session data, run `python3 <checkout>/scripts/yontology_paths.py` and use the returned absolute paths. It reads that checkout’s `.env`, independently of the current working directory. `$YONTOLOGY_NOTES_DIR` below denotes the resolved value, not an automatically exported shell variable. Use the returned path for file access and chat links; keep links between notes vault-relative. Do not execute `.env` as shell code or fall back to a previous machine’s path.
 
 ## Protect the Source PDF
 
@@ -133,7 +133,7 @@ same section note. On `여기까지`, save the exact resume point.
 Always write under:
 
 ```text
-~/OneDrive/Obsidian/Work/Documents/research-study/<paper-slug>/
+$YONTOLOGY_NOTES_DIR/research-study/<paper-slug>/
 ├── 00-paper-index.md
 └── <section-order>-<section-slug>.md
 ```
@@ -145,14 +145,14 @@ Use [assets/paper-index.md](assets/paper-index.md) for the paper index and
   unless the user explicitly asks.
 - Record source path, SHA-256, title, authors, DOI or arXiv ID when verified,
   current section, page, and next paragraph.
-- For PDFs under the shared Documents root, store the source path with a literal `~/OneDrive/Obsidian/Work/Documents/` prefix and expand it against the current user's home when opening it. For other PDFs, preserve the supplied path and verify availability when resuming on another Mac.
+- For PDFs under the configured notes root, store the source path relative to that root and resolve it against `YONTOLOGY_NOTES_DIR` when opening it. For other PDFs, preserve the supplied path and verify availability when resuming on another Mac.
 - Append each studied paragraph to its section file. Never overwrite prior
   original-text blocks.
 - Link important theory terms to `[[concepts/<canonical-slug>]]` so paper study
   can connect to code-review concepts in the shared Obsidian graph.
 - If the same hash already has an index, resume it. If the title matches but
   the hash differs, treat it as a different version and do not merge silently.
-- Request the narrowest permission needed for the fixed notes path. If denied,
+- Request the narrowest permission needed for the configured notes path. If denied,
   do not write elsewhere.
 
 Report both the clickable Markdown path and a percent-encoded

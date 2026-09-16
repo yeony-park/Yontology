@@ -7,14 +7,14 @@ description: Run strict daily reading and spaced-retrieval quizzes from the user
 
 Turn the user's canonical `concept-tutor` notes into persistent, granular question cards. Require the assigned reading before testing, grade narrowly against explicit rubrics, and schedule each card independently without breaking its cooldown. Quiz concept notes only; do not derive cards from code-review notes.
 
-Resolve `~/OneDrive/Obsidian/Work/Documents` against the current user’s home before file access. In shell commands use `"$HOME/OneDrive/Obsidian/Work/Documents"`; in Python use `Path.home() / "OneDrive/Obsidian/Work/Documents"`. Expand paths before forming clickable links or Obsidian URIs. This directory replaces the previous `notes/` root; do not append another `notes/`.
+Resolve this SKILL.md through any symlinks to find the Yontology checkout (the parent of `skills/`). Before accessing notes or session data, run `python3 <checkout>/scripts/yontology_paths.py` and use the returned absolute paths. It reads that checkout’s `.env`, independently of the current working directory. `$YONTOLOGY_NOTES_DIR` below denotes the resolved value, not an automatically exported shell variable. Use the returned path for file access and chat links; keep links between notes vault-relative. Do not execute `.env` as shell code or fall back to a previous machine’s path.
 
-## Fixed locations
+## Configured locations
 
-- Concepts: `~/OneDrive/Obsidian/Work/Documents/concepts/`
-- Learning index: `~/OneDrive/Obsidian/Work/Documents/Code Learning Index.md`
-- State: `~/OneDrive/Obsidian/Work/Documents/learning-tutor/state.json`
-- Session logs: `~/OneDrive/Obsidian/Work/Documents/learning-tutor/sessions/YYYY-MM-DD.md`
+- Concepts: `$YONTOLOGY_NOTES_DIR/concepts/`
+- Learning index: `$YONTOLOGY_NOTES_DIR/Code Learning Index.md`
+- State: `$YONTOLOGY_NOTES_DIR/learning-tutor/state.json`
+- Session logs: `$YONTOLOGY_NOTES_DIR/learning-tutor/sessions/YYYY-MM-DD.md`
 
 Ask for narrowly scoped permission before writing outside an allowed workspace. Never relocate the vault or create a second learning index.
 
@@ -25,8 +25,8 @@ Read `references/quiz-policy.md` completely before running or modifying a sessio
 ## Session workflow
 
 1. **Load durable state.** Read the learning index, canonical concept notes, today's session log if present, prior session logs, and scheduler state. If state is absent, initialize it with `study_scheduler.py init`.
-2. **Refresh the question bank.** Create stable cards for atomic learning objectives supported by the notes. Use IDs shaped like `<concept-slug>::<objective-key>`. Record the source path, heading, and fingerprint. Store vault source paths as `~/OneDrive/Obsidian/Work/Documents/...` in shared state and expand them against the current user's home when reading. Pass this literal home-relative value to `register --source`; pass expanded paths to file-access arguments such as `--state` and `--sessions-dir`. Preserve attempts when prose changes; create a new ID only for a genuinely new objective.
-3. **Rotate concepts.** Run `previous-concepts --before YYYY-MM-DD` against the fixed sessions directory. Pass each returned slug as a repeatable `--avoid-concept` argument. The command ignores `awaiting_reading` and aborted sessions and maps logged card IDs through durable state. If any other due concept exists, select only from that alternate pool even when the result is shorter than the limit. Fall back to the avoided pool only when every due card belongs to the prior range. This never overrides cooldowns.
+2. **Refresh the question bank.** Create stable cards for atomic learning objectives supported by the notes. Use IDs shaped like `<concept-slug>::<objective-key>`. Record the source path, heading, and fingerprint. Store source paths relative to the configured notes root, such as `concepts/jitter.md`, in shared state. Resolve them against `YONTOLOGY_NOTES_DIR` when reading. Keep existing absolute sources until a verified migration is requested; never reset learning history to fix a path. Pass expanded paths to explicit file-access arguments such as `--state` and `--sessions-dir`. Preserve attempts when prose changes; create a new ID only for a genuinely new objective.
+3. **Rotate concepts.** Run `previous-concepts --before YYYY-MM-DD` against the configured sessions directory. Pass each returned slug as a repeatable `--avoid-concept` argument. The command ignores `awaiting_reading` and aborted sessions and maps logged card IDs through durable state. If any other due concept exists, select only from that alternate pool even when the result is shorter than the limit. Fall back to the avoided pool only when every due card belongs to the prior range. This never overrides cooldowns.
 4. **Select without cheating.** Run `due --on YYYY-MM-DD --limit 10` with the rotation arguments. Never add an ineligible card merely to reach ten questions. Never repeat a card in one session, place the same concept consecutively, or exceed two cards from one concept.
 5. **Gate on reading.** Show every selected card's source section as a clickable path or Obsidian link, grouping them into 2–4 concept notes when possible, and state what to focus on without revealing answers. Never test an unassigned section merely to keep the reading list short. Write the selected card IDs to today's log with `status: awaiting_reading`. Require the exact acknowledgement `읽었음` before asking question 1. If the user has not acknowledged, stop the study flow here.
 6. **Quiz one card at a time.** New or unmastered cards use four mutually exclusive choices plus a mandatory one-sentence rationale. After a multiple-choice score of at least 70, that card becomes written-answer mode at its next eligible date. Once promoted, it remains written-answer mode.
@@ -58,12 +58,14 @@ Each card must be answerable from a named note section. Do not turn headings int
 
 ## Commands
 
+Run from this skill directory. The scheduler loads `.env` automatically; `--state` and `--sessions-dir` remain explicit overrides.
+
 ```bash
-python3 scripts/study_scheduler.py init --state "$HOME/OneDrive/Obsidian/Work/Documents/learning-tutor/state.json"
-python3 scripts/study_scheduler.py register --state ".../state.json" --question-id "reconnection-and-backoff::thundering-herd" --concept "reconnection-and-backoff" --objective "Explain why jitter prevents synchronized reconnects" --source ".../reconnection-and-backoff.md" --section "왜 필요한가" --on 2026-08-11
-python3 scripts/study_scheduler.py previous-concepts --state ".../state.json" --sessions-dir "$HOME/OneDrive/Obsidian/Work/Documents/learning-tutor/sessions" --before 2026-08-12
-python3 scripts/study_scheduler.py due --state ".../state.json" --on 2026-08-11 --limit 10 --avoid-concept architecture-decision-record --avoid-concept jitter
-python3 scripts/study_scheduler.py due --state ".../state.json" --on 2026-08-11 --limit 10 --exclude-concept rejected-topic
-python3 scripts/study_scheduler.py record --state ".../state.json" --question-id "reconnection-and-backoff::thundering-herd" --score 82 --on 2026-08-11
-python3 scripts/study_scheduler.py validate --state ".../state.json"
+python3 scripts/study_scheduler.py init
+python3 scripts/study_scheduler.py register --question-id "reconnection-and-backoff::thundering-herd" --concept "reconnection-and-backoff" --objective "Explain why jitter prevents synchronized reconnects" --source "concepts/reconnection-and-backoff.md" --section "왜 필요한가" --on 2026-08-11
+python3 scripts/study_scheduler.py previous-concepts --before 2026-08-12
+python3 scripts/study_scheduler.py due --on 2026-08-11 --limit 10 --avoid-concept architecture-decision-record --avoid-concept jitter
+python3 scripts/study_scheduler.py due --on 2026-08-11 --limit 10 --exclude-concept rejected-topic
+python3 scripts/study_scheduler.py record --question-id "reconnection-and-backoff::thundering-herd" --score 82 --on 2026-08-11
+python3 scripts/study_scheduler.py validate
 ```

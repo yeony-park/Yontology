@@ -8,7 +8,7 @@ description: Research and teach standalone technical concepts, keywords, languag
 Teach theory as an evidence-backed, reusable body of knowledge. Keep the lesson
 independent of any one codebase unless a project example materially clarifies it.
 
-Resolve `~/OneDrive/Obsidian/Work/Documents` against the current user’s home before file access. In shell commands use `"$HOME/OneDrive/Obsidian/Work/Documents"`; in Python use `Path.home() / "OneDrive/Obsidian/Work/Documents"`. Expand paths before forming clickable links or Obsidian URIs. This directory replaces the previous `notes/` root; do not append another `notes/`.
+Resolve this SKILL.md through any symlinks to find the Yontology checkout (the parent of `skills/`). Before accessing notes or session data, run `python3 <checkout>/scripts/yontology_paths.py` and use the returned absolute paths. It reads that checkout’s `.env`, independently of the current working directory. `$YONTOLOGY_NOTES_DIR` below denotes the resolved value, not an automatically exported shell variable. Use the returned path for file access and chat links; keep links between notes vault-relative. Do not execute `.env` as shell code or fall back to a previous machine’s path.
 
 ## Boundaries
 
@@ -66,10 +66,10 @@ headline numbers.
 
 ## Store Canonical Notes
 
-Always use these fixed paths regardless of the current repository:
+Always use these configured paths regardless of the current repository:
 
 ```text
-~/OneDrive/Obsidian/Work/Documents/
+$YONTOLOGY_NOTES_DIR/
 ├── concepts/                 # concept-tutor owns these notes
 ├── code-reviews/             # read/link-only here
 └── Code Learning Index.md    # concept-tutor owns only `## 개념`
@@ -115,7 +115,7 @@ obsidian://open?path=<percent-encoded-absolute-note-path>
 ```
 
 If Obsidian cannot resolve it, tell the user to open
-`~/OneDrive/Obsidian/Work/Documents` once with **Open folder as vault**.
+`$YONTOLOGY_NOTES_DIR` once with **Open folder as vault**.
 
 ## Continue the Lesson
 

@@ -8,10 +8,14 @@ import calendar
 import json
 import os
 import re
+import sys
 import tempfile
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
+from yontology_paths import load_paths
 
 SCHEMA_VERSION = 1
 VALID_MODES = {"mcq", "written"}
@@ -283,14 +287,16 @@ def record_score(args: argparse.Namespace) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    notes = load_paths()["YONTOLOGY_NOTES_DIR"]
+    default_state = str(notes / "learning-tutor/state.json")
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     init_parser = subparsers.add_parser("init")
-    init_parser.add_argument("--state", required=True)
+    init_parser.add_argument("--state", default=default_state)
 
     register = subparsers.add_parser("register")
-    register.add_argument("--state", required=True)
+    register.add_argument("--state", default=default_state)
     register.add_argument("--question-id", required=True)
     register.add_argument("--concept", required=True)
     register.add_argument("--objective", required=True)
@@ -300,25 +306,25 @@ def build_parser() -> argparse.ArgumentParser:
     register.add_argument("--on", required=True)
 
     due = subparsers.add_parser("due")
-    due.add_argument("--state", required=True)
+    due.add_argument("--state", default=default_state)
     due.add_argument("--on", required=True)
     due.add_argument("--limit", type=int, default=10)
     due.add_argument("--avoid-concept", action="append", default=[])
     due.add_argument("--exclude-concept", action="append", default=[])
 
     previous = subparsers.add_parser("previous-concepts")
-    previous.add_argument("--state", required=True)
-    previous.add_argument("--sessions-dir", required=True)
+    previous.add_argument("--state", default=default_state)
+    previous.add_argument("--sessions-dir", default=str(notes / "learning-tutor/sessions"))
     previous.add_argument("--before", required=True)
 
     record = subparsers.add_parser("record")
-    record.add_argument("--state", required=True)
+    record.add_argument("--state", default=default_state)
     record.add_argument("--question-id", required=True)
     record.add_argument("--score", type=int, required=True)
     record.add_argument("--on", required=True)
 
     validate = subparsers.add_parser("validate")
-    validate.add_argument("--state", required=True)
+    validate.add_argument("--state", default=default_state)
     return parser
 
 

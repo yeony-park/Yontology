@@ -29,13 +29,13 @@ Use this skill when the user wants one of these project document templates fille
 
 This skill includes a local CLI helper at `scripts/fill_template.py`.
 
-Use it from a project directory like this:
+Resolve `<skill-dir>` from the loaded SKILL.md (following symlinks), then use it from a project directory like this:
 
 ```bash
-"$HOME/.agents/skills/fill-document-template/scripts/dtf" feature 로그인 온보딩 개선
-"$HOME/.agents/skills/fill-document-template/scripts/dtf" chore ESLint 설정 정리
-"$HOME/.agents/skills/fill-document-template/scripts/dtf" bug 메인 페이지 이미지가 안 뜸
-"$HOME/.agents/skills/fill-document-template/scripts/dtf" pr --tested --issue 12
+"<skill-dir>/scripts/dtf" feature 로그인 온보딩 개선
+"<skill-dir>/scripts/dtf" chore ESLint 설정 정리
+"<skill-dir>/scripts/dtf" bug 메인 페이지 이미지가 안 뜸
+"<skill-dir>/scripts/dtf" pr --tested --issue 12
 ```
 
 - `feature`, `chore`, and `bug` use the text after the command plus project file hints from the current repository.

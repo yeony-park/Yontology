@@ -7,7 +7,7 @@ description: Persist material project decisions and their reasoning as repositor
 
 Preserve the decision trail without interrupting the work that produced it.
 
-Resolve `~/OneDrive/Obsidian/Work/Documents` against the current user’s home before file access. In shell commands use `"$HOME/OneDrive/Obsidian/Work/Documents"`; in Python use `Path.home() / "OneDrive/Obsidian/Work/Documents"`. Expand paths before forming clickable links or Obsidian URIs. This directory replaces the previous `notes/` root; do not append another `notes/`.
+Resolve this SKILL.md through any symlinks to find the Yontology checkout (the parent of `skills/`). Before accessing notes or session data, run `python3 <checkout>/scripts/yontology_paths.py` and use the returned absolute paths. It reads that checkout’s `.env`, independently of the current working directory. `$YONTOLOGY_NOTES_DIR` below denotes the resolved value, not an automatically exported shell variable. Use the returned path for file access and chat links; keep links between notes vault-relative. Do not execute `.env` as shell code or fall back to a previous machine’s path.
 
 ## Decide Whether to Record
 
@@ -57,7 +57,7 @@ Use `Current conversation (no durable link)` when no durable source exists. Do n
 
 ## Optionally Maintain the Cross-Project Index
 
-If `~/OneDrive/Obsidian/Work/Documents` exists, offer to maintain `~/OneDrive/Obsidian/Work/Documents/Project Decision Index.md` for cross-project recall. Request the narrowest write permission before touching that path.
+If `$YONTOLOGY_NOTES_DIR` exists, offer to maintain `$YONTOLOGY_NOTES_DIR/Project Decision Index.md` for cross-project recall. Request the narrowest write permission before touching that path.
 
 Keep each entry compact: project, date, status, one-sentence decision, and a link to the repository ADR. Never copy the full ADR. If permission is denied, leave the repository record complete and do not write an alternate global index.
 

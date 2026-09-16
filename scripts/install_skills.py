@@ -4,15 +4,18 @@
 import argparse
 from pathlib import Path
 
+from yontology_paths import load_paths
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--dest", type=Path, default=Path.home() / ".agents/skills")
+    parser.add_argument("--dest", type=Path)
     args = parser.parse_args()
+    paths = load_paths()
     sources = sorted((Path(__file__).resolve().parents[1] / "skills").glob("*/SKILL.md"))
     if not sources:
         parser.error("No skills found beside this installer.")
-    destination = args.dest.expanduser().absolute()
+    destination = (args.dest or paths["YONTOLOGY_SKILLS_DIR"]).expanduser().absolute()
     pending = []
     conflicts = []
     for entry in sources:
@@ -32,7 +35,7 @@ def main():
         target.symlink_to(source, target_is_directory=True)
         print(f"Installed {source.name}")
     print(f"Ready: {len(sources)} skills in {destination}. Keep this checkout in place.")
-    vault = Path.home() / "OneDrive/Obsidian/Work/Documents"
+    vault = paths["YONTOLOGY_NOTES_DIR"]
     print(f"Notes: {vault} ({'present' if vault.is_dir() else 'not present yet'})")
 
 

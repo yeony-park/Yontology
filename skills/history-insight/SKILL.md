@@ -7,9 +7,11 @@ description: 명시된 기간 또는 프로젝트의 로컬 Claude Code 세션 �
 
 현재 로컬에 보존된 Claude Code 세션을 스트리밍으로 인벤토리화한 뒤, 서로 겹치지 않는 배치로 분석하고 증거 기반 인사이트를 합성하라.
 
+Resolve this SKILL.md through any symlinks to find the Yontology checkout (the parent of `skills/`). Before accessing notes or session data, run `python3 <checkout>/scripts/yontology_paths.py` and use the returned absolute paths. It reads that checkout’s `.env`, independently of the current working directory. `$YONTOLOGY_NOTES_DIR` below denotes the resolved value, not an automatically exported shell variable. Use the returned path for file access and chat links; keep links between notes vault-relative. Do not execute `.env` as shell code or fall back to a previous machine’s path.
+
 ## 범위 계약
 
-- Claude Code 세션 분석 요청은 `${CLAUDE_CONFIG_DIR:-~/.claude}/projects`의 transcript JSONL을 읽기 전용으로 조사할 권한으로 해석하라. 사용자가 다른 소스 경로를 명시하면 그 경로만 추가하거나 대신 사용하라. `history.jsonl`, 파일 mtime, 인코딩된 프로젝트 디렉터리명은 권위 인덱스로 사용하지 마라.
+- Claude Code 세션 분석 요청은 `$YONTOLOGY_CLAUDE_DIR/projects`의 transcript JSONL을 읽기 전용으로 조사할 권한으로 해석하라. 사용자가 다른 소스 경로를 명시하면 그 경로만 추가하거나 대신 사용하라. `history.jsonl`, 파일 mtime, 인코딩된 프로젝트 디렉터리명은 권위 인덱스로 사용하지 마라.
 - 세션 외 프로젝트 자료는 현재 Codex 작업에서 사용자가 첨부·선택·정확한 경로로 명시한 파일만 활성 파일로 인정하라. `cwd`, workspace root, 저장소 전체, 다른 창의 UI 상태를 활성 파일 목록으로 간주하지 마라.
 - 활성 파일은 프로젝트 식별과 보조 컨텍스트에만 사용하라. 입력 파일이라는 이유만으로 수정 권한이 생기지 않는다. 사용자가 출력 경로를 명시하지 않으면 결과를 채팅으로 반환하고 영구 파일을 만들지 마라.
 - 원본 로그와 활성 파일을 수정하지 마라. 임시 산출물만 권한 `0700`의 실행별 시스템 임시 디렉터리에 두고 파일은 `0600`으로 유지한 뒤 종료 시 제거하라. 재개 가능한 checkpoint는 사용자가 경로를 명시했을 때만 보존하라.

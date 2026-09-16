@@ -17,6 +17,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, BinaryIO, Iterable, Iterator
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "scripts"))
+from yontology_paths import load_paths
+
 
 MAX_DETAIL_CHARS = 6_000
 UUID_RE = re.compile(r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", re.I)
@@ -142,8 +145,7 @@ def open_nofollow(path: Path) -> tuple[BinaryIO, os.stat_result]:
 
 
 def codex_home() -> Path:
-    configured = os.environ.get("CODEX_HOME")
-    return Path(configured).expanduser() if configured else Path.home() / ".codex"
+    return load_paths()["YONTOLOGY_CODEX_DIR"]
 
 
 def candidate_state_databases() -> list[Path]:
