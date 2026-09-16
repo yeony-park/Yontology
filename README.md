@@ -12,7 +12,7 @@
 | [Define Project](skills/define-project/SKILL.md) | 질문과 검토로 모호한 아이디어를 구체화합니다. Ouroboros로 요구사항 명세인 Seed를 검증·버전 관리하고 승인된 PRD를 작성합니다. | “앱을 만들기 전에 요구사항부터 정리해줘.” |
 | [Fill Document Template](skills/fill-document-template/SKILL.md) | 기능·유지보수·버그 이슈와 PR 본문을 정해진 한국어 Markdown 템플릿으로 작성합니다. | “이번 변경으로 PR 본문 작성해줘.” |
 | [History Insight](skills/history-insight/SKILL.md) | 기간·프로젝트별 Claude Code 기록에서 반복 질문과 문제 해결 흐름을 찾아 재사용할 스킬·컨텍스트 후보를 제안합니다. | “지난달 기록에서 반복 작업을 찾아줘.” |
-| [Project Decision Journal](skills/project-decision-journal/SKILL.md) | 확정된 중요한 결정의 이유, 대안, 장단점과 재검토 조건을 프로젝트 의사결정 문서(ADR)에 기록합니다. | “이 기술을 선택한 이유를 기록해줘.” |
+| [Project Decision Journal](skills/project-decision-journal/SKILL.md) | 중요한 결정과 이유를 프로젝트 ADR에 기록하고, 노트 보관함에 사본과 인덱스를 만들어 다른 컴퓨터에서도 읽을 수 있게 합니다. | “이 기술을 선택한 이유를 기록하고 ADR도 공유해줘.” |
 | [Research Study](skills/research-study/SKILL.md) | 논문 PDF를 문단별로 읽으며 원문, 번역, 쉬운 설명과 용어를 정리하고 다음에 읽을 위치를 저장합니다. | “이 논문 초록부터 같이 읽자.” |
 | [Seed Docs Suite](skills/seed-docs-suite/SKILL.md) | 확정된 요구사항으로 PRD·화면 흐름·기능 명세·와이어프레임·권한 정책·ERD·API·QA 문서 8종을 작성하고 서로 일치하는지 확인합니다. | “승인된 Seed로 개발 문서 세트를 만들어줘.” |
 | [Session Analyzer](skills/session-analyzer/SKILL.md) | 선택한 스킬 지침과 Claude Code·Codex 실행 기록을 대조해 실제 도구 호출·파일 변경·결과 반영을 평가합니다. | “이 세션이 스킬 지침을 지켰는지 확인해줘.” |
@@ -89,6 +89,11 @@ $YONTOLOGY_NOTES_DIR/
 ├── concepts/
 ├── code-reviews/
 ├── research-study/
+├── decisions/
+│   ├── <project>.md
+│   └── <project>/
+│       ├── README.md
+│       └── ADR-*.md
 ├── learning-tutor/
 │   ├── state.json
 │   └── sessions/
@@ -101,6 +106,15 @@ $YONTOLOGY_NOTES_DIR/
 복습을 이어가려면 노트뿐 아니라 `learning-tutor/state.json`과 세션 기록도 함께 옮기세요. 학습을 시작하기 전에 동기화를 완료하고, 두 Mac에서 동시에 복습 상태를 수정하지 마세요. 새 문제 카드의 `source`와 노트 폴더 안의 PDF 경로는 노트 루트 기준 상대 경로로 기록하도록 안내합니다. 기존 노트의 절대 링크·Obsidian URI·저장된 원본 경로는 별도로 확인해야 하며, `.env` 변경만으로 과거 기록을 재작성하지 않습니다.
 
 ## 그 밖의 경로와 의존성
+
+프로젝트 ADR은 원본을 저장소에 유지하고 `decisions/<project>/`에 공유용 사본을 둡니다. 기존 문서를 공유하거나 저장소에서 직접 수정한 내용을 반영하려면 다음 명령을 실행하세요. 스킬로 ADR을 작성·수정할 때도 같은 절차로 사본을 갱신합니다.
+
+```bash
+python3 skills/project-decision-journal/scripts/share_adrs.py \
+  --source-dir /path/to/project/docs/decisions --project my-project
+```
+
+ADR과 프로젝트 결정 원장을 복사하고 내용 일치를 검증합니다. 프로젝트 전체 목록과 공통 인덱스는 스킬이 별도로 갱신합니다. 사본을 따로 수정했다면 덮어쓰지 않고 충돌을 알려줍니다. 원본에서 없어진 문서는 자동 삭제하지 않습니다. 프로젝트 전체 코드·PRD·이미지는 포함하지 않으며, 사본은 상시 자동 동기화가 아닌 실행 시점의 기록입니다. OneDrive 등의 서버 업로드 완료는 별도로 확인해야 합니다.
 
 | 항목 | 경로 또는 준비 사항 |
 | --- | --- |

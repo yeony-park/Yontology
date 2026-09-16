@@ -1,6 +1,6 @@
 ---
 name: project-decision-journal
-description: Persist material project decisions and their reasoning as repository ADRs, with optional cross-project indexing. Use implicitly after the user confirms a consequential product, architecture, data, security, API, vendor, or implementation choice following tradeoff discussion (including A/B selections), or explicitly asks to preserve why a choice was made. Ignore trivial, reversible, formatting, naming, and other mechanical choices.
+description: Persist material project decisions and their reasoning as repository ADRs, with portable copies and a cross-project index in the configured notes vault. Use after the user confirms a consequential product, architecture, data, security, API, vendor, or implementation choice following tradeoff discussion, asks to preserve its reasoning, or wants to share existing ADRs across computers. Ignore trivial, reversible, formatting, naming, and mechanical choices.
 ---
 
 # Project Decision Journal
@@ -64,11 +64,23 @@ Use `Current conversation (no durable link)` when no durable source exists. Do n
 - For a changed accepted decision, create a new ADR, mark the old ADR `Superseded`, and link both directions.
 - Keep the project decision index sorted by ADR number and update an existing row instead of duplicating it.
 
-## Optionally Maintain the Cross-Project Index
+## Share ADRs in the Configured Notes Vault
 
-If `$YONTOLOGY_NOTES_DIR` exists, offer to maintain `$YONTOLOGY_NOTES_DIR/Project Decision Index.md` for cross-project recall. Request the narrowest write permission before touching that path.
+Unless the user opts out of note sharing, publish a portable copy after creating or updating repository ADRs. For an explicit request to share existing ADRs, skip decision creation and locate the requested project's existing ADR directory. Keep repository documents authoritative and unchanged during sharing.
 
-Keep each entry compact: project, date, status, one-sentence decision, and a link to the repository ADR. Never copy the full ADR. If permission is denied, leave the repository record complete and do not write an alternate global index.
+1. Resolve `YONTOLOGY_NOTES_DIR` and reuse the project's existing stable folder name under `decisions/`; otherwise derive a lowercase kebab-case project identifier. Resolve collisions before combining different projects.
+2. Use the helper for conventional `ADR-*.md` documents and their `README.md`:
+
+   ```bash
+   python3 <skill-dir>/scripts/share_adrs.py --source-dir <project-adr-directory> --project <project-slug>
+   ```
+
+   It copies complete documents to `$YONTOLOGY_NOTES_DIR/decisions/<project-slug>/`, verifies their contents, and records hashes in `.adr-share.json`. Subsequent runs refresh unchanged copies from their sources; independently edited copies cause a conflict instead of being overwritten. Documents missing from the source are retained for review, never automatically deleted. For a different naming convention, preserve the repository convention and copy the explicitly selected ADRs with the same comparison checks rather than silently skipping them.
+3. Keep relative links among ADRs and the copied project README working. Report references to code, PRDs, images, or other files outside the ADR directory as requiring the project repository; do not silently copy the entire project.
+4. Maintain a project overview at `$YONTOLOGY_NOTES_DIR/decisions/<project-slug>.md` linking all shared ADRs. Record that these are snapshots of authoritative repository documents, when they were refreshed, and the repository-relative source directory. Do not put a machine-specific absolute source path in the shared overview.
+5. Update `$YONTOLOGY_NOTES_DIR/Project Decision Index.md` to link to this overview and shared ADRs using vault-relative Markdown links or wikilinks. Keep existing confirmed summaries and history; do not infer new decisions during sharing. Avoid obsolete absolute links to another computer's checkout.
+
+If the notes root is absent or write permission is unavailable, leave repository ADRs complete and report the sharing limitation. A copy operation verifies local content, not cloud upload completion. This helper is not a background watcher: rerun it after direct repository edits, and refresh copies during subsequent journal work. Respect the user's instruction not to save notes when given.
 
 ## Verify and Report
 
@@ -81,6 +93,7 @@ Before finishing, verify that:
 - guardrails, validation, and revisit triggers are concrete;
 - source and supersession links resolve when local;
 - the project index matches the ADR status;
+- shared copies match their source documents and cross-project links resolve inside the vault, or the sharing limitation is explicit;
 - no template placeholders remain.
 
-Report the created or updated ADR and index with clickable absolute paths. Mention any unresolved rationale, deferred validation, or skipped cross-project index.
+Report the created or updated ADR, shared overview, and index with clickable absolute paths. Mention any unresolved rationale, deferred validation, copy conflict, external project references, or skipped sharing. Never claim another computer has synced based only on successful local copying.
