@@ -5,6 +5,15 @@ description: Run strict daily reading and spaced-retrieval quizzes from the user
 
 # Daily Learning Tutor
 
+## Version check before use
+
+Before this skill's workflow, resolve this `SKILL.md` through symlinks to its
+Yontology checkout and follow [the shared update procedure](../../docs/skill-updates.md).
+Once per user request per checkout, run
+`python3 <checkout>/scripts/check_skill_updates.py --skill <invoked-SKILL.md>`.
+After an update, re-read this skill and any already-loaded references before
+continuing. Respect an explicit request to use the local version without updating.
+
 Turn the user's canonical `concept-tutor` notes into persistent, granular question cards. Require the assigned reading before testing, grade narrowly against explicit rubrics, and schedule each card independently without breaking its cooldown. Quiz concept notes only; do not derive cards from code-review notes.
 
 Resolve this SKILL.md through any symlinks to find the Yontology checkout (the parent of `skills/`). Before accessing notes or session data, run `python3 <checkout>/scripts/yontology_paths.py` and use the returned absolute paths. It reads that checkout’s `.env`, independently of the current working directory. `$YONTOLOGY_NOTES_DIR` below denotes the resolved value, not an automatically exported shell variable. Use the returned path for file access and chat links; keep links between notes vault-relative. Do not execute `.env` as shell code or fall back to a previous machine’s path.

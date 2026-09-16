@@ -5,6 +5,15 @@ description: 명시된 기간 또는 프로젝트의 로컬 Claude Code 세션 �
 
 # History Insight
 
+## Version check before use
+
+Before this skill's workflow, resolve this `SKILL.md` through symlinks to its
+Yontology checkout and follow [the shared update procedure](../../docs/skill-updates.md).
+Once per user request per checkout, run
+`python3 <checkout>/scripts/check_skill_updates.py --skill <invoked-SKILL.md>`.
+After an update, re-read this skill and any already-loaded references before
+continuing. Respect an explicit request to use the local version without updating.
+
 현재 로컬에 보존된 Claude Code 세션을 스트리밍으로 인벤토리화한 뒤, 서로 겹치지 않는 배치로 분석하고 증거 기반 인사이트를 합성하라.
 
 Resolve this SKILL.md through any symlinks to find the Yontology checkout (the parent of `skills/`). Before accessing notes or session data, run `python3 <checkout>/scripts/yontology_paths.py` and use the returned absolute paths. It reads that checkout’s `.env`, independently of the current working directory. `$YONTOLOGY_NOTES_DIR` below denotes the resolved value, not an automatically exported shell variable. Use the returned path for file access and chat links; keep links between notes vault-relative. Do not execute `.env` as shell code or fall back to a previous machine’s path.

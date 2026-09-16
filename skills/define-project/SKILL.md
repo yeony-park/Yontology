@@ -5,6 +5,15 @@ description: Convert vague project or feature ideas into approved, versioned pro
 
 # Define Project
 
+## Version check before use
+
+Before this skill's workflow, resolve this `SKILL.md` through symlinks to its
+Yontology checkout and follow [the shared update procedure](../../docs/skill-updates.md).
+Once per user request per checkout, run
+`python3 <checkout>/scripts/check_skill_updates.py --skill <invoked-SKILL.md>`.
+After an update, re-read this skill and any already-loaded references before
+continuing. Respect an explicit request to use the local version without updating.
+
 Turn a brief into an explicitly approved `docs/PRD.md`. Prefer the official
 Ouroboros runtime for persistent interviews, immutable Seeds, evaluation, and
 evolution. Add the project-definition gates in this skill around that runtime.

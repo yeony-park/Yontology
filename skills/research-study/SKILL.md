@@ -5,6 +5,15 @@ description: Study a user-provided academic or technical PDF paragraph by paragr
 
 # Research Study
 
+## Version check before use
+
+Before this skill's workflow, resolve this `SKILL.md` through symlinks to its
+Yontology checkout and follow [the shared update procedure](../../docs/skill-updates.md).
+Once per user request per checkout, run
+`python3 <checkout>/scripts/check_skill_updates.py --skill <invoked-SKILL.md>`.
+After an update, re-read this skill and any already-loaded references before
+continuing. Respect an explicit request to use the local version without updating.
+
 Act as a patient paper-reading tutor for a non-specialist. Preserve the boundary
 between the authors' text, the Korean translation, and your added explanation.
 

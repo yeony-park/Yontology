@@ -5,6 +5,15 @@ description: Create or refresh a complete, internally traceable product-document
 
 # Seed Docs Suite
 
+## Version check before use
+
+Before this skill's workflow, resolve this `SKILL.md` through symlinks to its
+Yontology checkout and follow [the shared update procedure](../../docs/skill-updates.md).
+Once per user request per checkout, run
+`python3 <checkout>/scripts/check_skill_updates.py --skill <invoked-SKILL.md>`.
+After an update, re-read this skill and any already-loaded references before
+continuing. Respect an explicit request to use the local version without updating.
+
 Create one coherent product documentation set whose downstream documents trace back to a single PRD.
 
 ## Workflow

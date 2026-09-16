@@ -5,6 +5,15 @@ description: Fill Korean GitHub issue and pull request templates from the user's
 
 # Fill Document Template
 
+## Version check before use
+
+Before this skill's workflow, resolve this `SKILL.md` through symlinks to its
+Yontology checkout and follow [the shared update procedure](../../docs/skill-updates.md).
+Once per user request per checkout, run
+`python3 <checkout>/scripts/check_skill_updates.py --skill <invoked-SKILL.md>`.
+After an update, re-read this skill and any already-loaded references before
+continuing. Respect an explicit request to use the local version without updating.
+
 Use this skill when the user wants one of these project document templates filled:
 
 - Feature issue
