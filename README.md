@@ -19,10 +19,10 @@
 
 ## 다른 Mac에 설치
 
-Git과 Python 3.10 이상이 필요합니다. 원하는 **지속 보관할 로컬 경로**에 복제합니다. 현재 스킬 모음은 `chore/setup-skill-collection` 브랜치에 있습니다.
+Git과 Python 3.10 이상이 필요합니다. 원하는 **지속 보관할 로컬 경로**에 `main` 브랜치를 복제합니다.
 
 ```bash
-git clone --branch chore/setup-skill-collection https://github.com/yeony-park/Yontology.git
+git clone --branch main https://github.com/yeony-park/Yontology.git
 cd Yontology
 python3 scripts/install_skills.py
 ```
