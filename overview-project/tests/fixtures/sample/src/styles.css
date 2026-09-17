@@ -1,0 +1,3 @@
+.app { display: flex; padding: 24px; }
+.button:hover { background: #15756b; color: white; }
+@media (max-width: 640px) { .app { flex-direction: column; } }

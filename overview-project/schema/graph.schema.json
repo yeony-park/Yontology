@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Overview Project graph v1",
+  "type": "object",
+  "required": ["schemaVersion", "engineVersion", "project", "version", "generatedAt", "nodes", "edges", "files", "diagnostics", "limitations", "diff"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "engineVersion": { "type": "string" },
+    "project": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "generatedAt": { "type": "string" },
+    "nodes": { "type": "array", "items": { "type": "object", "required": ["id", "name", "kind", "file"], "properties": { "id": { "type": "string" }, "name": { "type": "string" }, "kind": { "enum": ["directory", "file", "class", "function", "method", "variable", "component", "test", "element", "style", "utility"] }, "file": { "type": "string" }, "line": { "type": "integer", "minimum": 1 } } } },
+    "edges": { "type": "array", "items": { "type": "object", "required": ["id", "source", "target", "kind", "confidence", "line"], "properties": { "kind": { "enum": ["contains", "imports", "calls", "inherits", "reads", "writes", "renders", "tests", "styles"] }, "confidence": { "enum": ["resolved", "inferred"] } } },
+    "files": { "type": "array" }, "diagnostics": { "type": "array" }, "limitations": { "type": "array", "items": { "type": "string" } },
+    "diff": { "type": "object", "required": ["added", "removed", "changed", "edgesAdded", "edgesRemoved"] }
+  }
+}
