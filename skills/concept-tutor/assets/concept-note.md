@@ -12,7 +12,7 @@ status: evergreen
 
 # {{concept_title}}
 
-> {{one_sentence_definition}}
+> {{direct_answer_to_the_question}}
 
 <!-- On first use, write full terms before abbreviations: e.g.
 Mixture-of-Experts (MoE), Feed-Forward Network (FFN). -->
@@ -20,55 +20,20 @@ Mixture-of-Experts (MoE), Feed-Forward Network (FFN). -->
 in the title and definition. Honor requested acronym-first notation, e.g.
 SFT (Supervised Fine-Tuning, 지도 미세조정). Add common translations to aliases. -->
 
-## 적용 범위와 한계
+<!-- This is a scaffold, not a required outline. Choose descriptive body headings
+for the user's question and depth. Explain the mechanism in connected prose,
+following a concrete example where useful. Include comparisons, history, formulas,
+application, or checks only when they help; omit unused placeholders and sections.
+Keep material limits beside the claims they qualify. Do not require a separate
+evidence-status checklist. If toggles are requested, group by reader question and
+keep the central answer visible unless the user requests everything collapsed. -->
 
-- 포함: {{included_scope}}
-- 포함하지 않음: {{excluded_scope}}
+{{question_driven_explanation}}
 
-## 왜 필요한가
-
-{{motivation}}
-
-## 작동 원리
-
-{{causal_mechanism}}
-
-<!-- For a multi-step mechanism, training loop, architecture, or concept relation,
-add an Obsidian-compatible fenced mermaid diagram plus a prose explanation.
-Distinguish inputs, outputs, frozen/trainable parts, and optional paths as relevant.
-Define equation symbols and use a small worked example when it adds clarity. -->
-
-## 헷갈리는 개념과 비교
-
-| 구분 | {{concept_title}} | {{nearby_concept}} |
-| --- | --- | --- |
-| 핵심 | {{this_core}} | {{nearby_core}} |
-| 선택 기준 | {{this_when}} | {{nearby_when}} |
-
-## 발전 과정
-
-{{history_or_not_applicable}}
-
-## 장단점과 트레이드오프
-
-- 장점: {{advantages}}
-- 비용과 제약: {{costs_and_constraints}}
-
-## 실패 양상
-
-{{failure_modes}}
-
-## 적용과 검증
-
-{{application_and_verification}}
-
-## 프로젝트·코드 연결
-
-{{optional_project_or_review_links}}
-
-## 연결된 개념
-
-{{related_concept_links}}
+<!-- When a diagram or worked equation clarifies the mechanism, explain it in
+prose too. Distinguish data flow, parameter updates, and optional relationships.
+Add relevant project/code backlinks and related concept links where helpful;
+preserve existing correct content and learning history when updating a note. -->
 
 ## 근거 자료
 
@@ -78,15 +43,7 @@ Define equation symbols and use a small worked example when it adds clarity. -->
 say which section to read and why. Include original papers and official docs as
 relevant, distinguish versions, and avoid padding the list with redundant links. -->
 
-## 근거 상태
-
-- 확인됨: {{confirmed_claims}}
-- 추정: {{inferences_and_confirmation_needed}}
-- 근거 확인 보류: {{pending_evidence_or_none}}
-
-## 스스로 설명하기
-
-{{teach_back_prompt}}
+<!-- Add a teach-back question only if it supports the learning request. -->
 
 ## 학습 이력
 

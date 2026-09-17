@@ -33,11 +33,12 @@ Resolve this SKILL.md through any symlinks to find the Yontology checkout (the p
   and do not manufacture a tutorial or review note.
 - Create and update code-review notes only. `concept-tutor` owns standalone
   canonical concept notes.
-- Keep definitions brief and tied to the target's behavior or structure. Hand a
-  deeper independent lesson to `concept-tutor`, passing the concept, source
+- Explain prerequisites enough for the reader to follow the target's behavior.
+  Hand a deeper independent lesson to `concept-tutor`, passing the concept, source
   location, its role here, and the review backlink when available.
-- Distinguish observed behavior from inferred design intent. Label inferred
-  rationales as `추정` and state what would confirm them.
+- Distinguish observed behavior from inferred design intent in natural prose and
+  state what would confirm a material inference. Use explicit evidence labels when
+  they help, not as a prefix on every paragraph.
 - Never claim code is safe, correct, independent, or performant without relevant
   evidence.
 - Match the user's language; default to Korean when the user writes in Korean.
@@ -45,43 +46,53 @@ Resolve this SKILL.md through any symlinks to find the Yontology checkout (the p
 ## Start a Review
 
 1. Resolve the target from the attached code, user selection, file path, line
-   range, symbol, repository location, or current review context.
+   range, symbol, repository location, or current review context. Identify what
+   the user wants to understand or do and their demonstrated familiarity.
 2. Read the containing function or type and only the callers, callees, data
    types, state owners, dependency edges, tests, configuration, substitution
    seams, and runtime boundaries needed to establish behavior.
-3. For a bare “review this,” cover execution, call and state flow, dependency
+3. For a bare “review this,” inspect execution, call and state flow, dependency
    direction, coupling and cohesion, independence and testability, runtime
-   failure behavior, and focused verification.
+   failure behavior, and focused verification. Treat these as analysis checks,
+   not mandatory headings. For a narrower question, inspect the parts needed to
+   explain the requested behavior or choice.
 4. Say what remains unknown and what evidence would settle it. Do not fill a
    missing caller, deployment condition, or design rationale with assumption.
 5. Prefer language and runtime facts over style opinions. Explain mechanisms
    behind performance claims and avoid universal micro-optimization advice.
 
-## Explain the Code
+## Shape the Explanation Around the Question
 
-Use this order:
+Answer the central question first, then choose a structure that helps this reader
+follow the source. Do not print the analysis checklist as a fixed report. For
+example, explain usage through a working input and its result, behavior through
+an execution trace, and a design choice through the problem it solves and its
+costs. A repository usage or integration question does not automatically need
+separate coupling, testability, and runtime-risk chapters.
 
-1. **한 줄 결론**: State what the target does in plain language.
-2. **실행 흐름**: Walk through inputs, branches, state changes, calls, and
-   outputs.
-3. **호출·데이터 관계**: Identify callers, callees, data ownership, shared
-   state, and side effects.
-4. **결합도·응집도·의존성 방향**: Explain what the target knows about, which
-   responsibility belongs together, and whether dependency direction matches
-   the intended boundary.
-5. **독립성·테스트 경계**: Assess whether it can be substituted or tested in
-   isolation, naming hidden dependencies and actual seams.
-6. **코드에 종속된 이유**: Separate project evidence under `확인됨` from
-   inferred rationale under `추정`; include plausible alternatives and costs.
-7. **런타임 위험**: Trace concrete failure, concurrency, lifecycle, resource,
-   or performance behavior that follows from the code.
-8. **검증 포인트**: Give one or two small checks the user can perform.
-9. **근거 자료**: Cite primary sources needed to support runtime or framework
-   semantics.
+- Follow a small concrete input through the relevant calls and state changes.
+  Explain why each next step happens and what the caller can observe; use source
+  locations to support that narrative rather than listing symbols without context.
+- Introduce a technical term's meaning and role when needed. Explain prerequisites
+  before relying on them, without restarting at beginner level when the user has
+  already demonstrated familiarity. Avoid unexplained English fragments and strings
+  of abstract nouns in Korean prose.
+- Use connected paragraphs for reasoning, lists for procedures or parallel items,
+  and tables for comparisons. More detail should deepen the trace, example, or
+  application, not expand into every adjacent topic.
+- Keep important failure conditions and limits next to the behavior they qualify.
+  Put secondary caveats and verification details in supporting material; do not
+  repeatedly interrupt the explanation with evidence labels or research-process notes.
+- When toggles are requested, group them around meaningful reader questions rather
+  than each analysis check. Preserve a readable explanation inside each toggle;
+  keep the central answer visible unless the user requests a fully collapsed format.
 
-When a misconception is likely, define the code-local term in one or two
-sentences and contrast it with the nearest confusion. Do not turn this section
-into a standalone concept lesson.
+Explain dependencies, state ownership, substitution seams, and alternatives when
+they help answer the question. Retain important uncertainty and causal failure
+paths even when the note does not have separate headings for them. Use a minimal
+excerpt or diagram when it makes the source behavior easier to follow. Keep any
+prerequisite explanation tied to this code; route an independent theory lesson to
+`concept-tutor`.
 
 ## Use Primary References
 
@@ -131,12 +142,14 @@ denied, do not write elsewhere or claim persistence.
 ### Create a Review Note
 
 Create one note for each initial code question under `code-reviews/` using
-[assets/review-note.md](assets/review-note.md).
+[assets/review-note.md](assets/review-note.md) as a flexible scaffold. Preserve
+metadata and learning history; choose body headings for the question and omit
+unused placeholders or empty sections.
 
 - Name it `YYYYMMDD-HHmm--<project>-<short-topic>.md`.
-- Preserve the minimal excerpt, execution and state flow, call relationships,
-  dependency assessment, independence or test seams, runtime risks, verified
-  rationale, inferred intent, and verification points.
+- Preserve the source context and the reasoning needed to answer the question.
+  Include excerpts, call and state flow, dependency or test seams, risks, and
+  verification points where they materially support that explanation.
 - Link an existing concept note, or one returned by `concept-tutor`, only when it
   materially supports the review. Do not create a concept note merely because a
   term appeared.
@@ -170,10 +183,14 @@ After writing, report clickable absolute Markdown paths and Obsidian URIs using
 Before ending, verify that:
 
 - The code target is concrete and all cited locations resolve.
-- Execution, call, data, and state flow are supported by inspected code.
-- Coupling, cohesion, dependency direction, independence, and test seams were
-  considered at the evidence available.
-- Runtime risks include a causal failure path and a focused verification.
+- The central question is answered at the requested depth, with enough explanation
+  for the reader to describe the relevant behavior in their own words.
+- Execution, call, data, and state claims are supported by inspected code and
+  connected through a concrete trace or causal explanation.
+- Dependencies and test seams were considered where relevant; the output does not
+  include unrelated checklist chapters or unexplained technical terms.
+- Material runtime risks retain their causal failure paths and useful checks;
+  secondary caveats do not interrupt the main explanation.
 - Observed facts and inferred intent are separated.
 - Only a code-review note and the index's `## 코드 리뷰` section were changed.
 - Standalone theory was handed to `concept-tutor` rather than stored here.

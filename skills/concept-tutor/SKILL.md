@@ -27,8 +27,9 @@ Resolve this SKILL.md through any symlinks to find the Yontology checkout (the p
   vault and index writes, skip persistence-only completion checks, and report
   that nothing was written.
 - Match the user's language; default to Korean when the user writes in Korean.
-- Separate source-confirmed facts from interpretation or project-specific
-  inference. Label the latter `추정` and state what would confirm it.
+- Distinguish source-confirmed facts from interpretation or project-specific
+  inference in natural prose; state what would confirm a material inference.
+  Use explicit evidence labels when they help, not as a prefix on every paragraph.
 - Resolve a standalone concept here even if it arose during a code review. If
   the user instead asks how a resolvable source target uses the concept, hand
   the request to `code-review-tutor` with that target intact.
@@ -37,7 +38,9 @@ Resolve this SKILL.md through any symlinks to find the Yontology checkout (the p
 
 ## Start a Lesson
 
-1. Identify the requested concept and intended depth. If an acronym has several
+1. Identify what the user wants to understand or do, the requested concept,
+   and the intended depth. Use the conversation to gauge familiarity rather
+   than restarting every lesson at beginner level. If an acronym has several
    plausible technical meanings that would change the answer, disambiguate it
    before writing a canonical note.
 2. Search existing concept-note `title` and `aliases` before creating anything.
@@ -46,41 +49,54 @@ Resolve this SKILL.md through any symlinks to find the Yontology checkout (the p
 3. Read [references/source-policy.md](references/source-policy.md) completely,
    then research the concept from primary sources. Use current browsing for
    claims that may have changed.
-4. Determine the concept boundary, causal mechanism, nearest confusing concept,
-   tradeoffs, failure modes, and a way to verify or observe it.
+4. Investigate the concept boundary, causal mechanism, relevant comparisons,
+   tradeoffs, and ways to observe it. These are analysis checks, not required
+   sections in every explanation.
 5. Teach first, then create or update the canonical Markdown note and index
    unless the user opted out of persistence.
 
-## Teach in This Order
+## Shape the Lesson Around the Question
 
-1. **한 줄 정의**: Give the shortest accurate explanation.
-   On first use in every answer and note, write an established full term before
-   its abbreviation, for example `Mixture-of-Experts (MoE)` and
-   `Feed-Forward Network (FFN)`; use the abbreviation alone afterward.
-   For an acronym-focused lesson, include the English expansion and Korean name
-   in each note's title and first definition. When the user prefers acronym-first
-   notation, use `SFT (Supervised Fine-Tuning, 지도 미세조정)` instead. Put common
-   Korean translations in aliases without claiming a single official translation.
-2. **적용 범위와 한계**: State what the concept includes and does not solve.
-3. **작동 원리**: Explain the causal sequence, not only terminology.
-4. **헷갈리는 개념과 비교**: Contrast the closest alternative or homonym.
-5. **발전 과정**: Include only when history, standards, or a paper lineage
-   matters; avoid inventing a single linear lineage for branching research.
-6. **장단점과 실패 양상**: State costs, assumptions, limits, and where a claim
-   stops generalizing.
-7. **적용과 검증**: Give a small example or an observable test without turning
-   an unchosen project design into a decision.
-8. **근거 자료**: Cite the exact official section, standard, or original paper.
+Answer the central question first, then choose the order that helps this reader
+understand it. Do not turn the analysis checks or note template into a fixed
+outline. A first explanation may follow a concrete problem through its solution;
+a comparison should develop the differences that affect a choice; an application
+question should connect the mechanism to the user's situation. These are examples,
+not mandatory modes or headings.
 
-Use equations, tables, or a tiny example only when they make the mechanism more
-precise. For paper comparisons, report model or system scale, experimental
-conditions, publication status, and the metric denominator needed to interpret
-headline numbers.
+- Build connected paragraphs: show what happens, why the next step is needed,
+  and what changes as a result. A list of terms or arrows alone is not an explanation.
+- When the mechanism is abstract, follow one small example through it before
+  generalizing. Define a technical term's meaning and role when it becomes needed;
+  avoid unexplained English fragments and strings of abstract nouns in Korean prose.
+- Match the requested depth and demonstrated knowledge. More detail should deepen
+  the mechanism, example, or application, not add unrelated topics or more headings.
+- Introduce limitations where they change the reader's understanding or decision.
+  Keep essential qualifications beside the claim; move secondary exceptions and
+  verification detail to optional supporting material instead of interrupting each
+  paragraph with warnings or accounts of the research process.
+- Include comparisons, history, equations, or failure cases when they answer the
+  question. Do not fill an irrelevant section merely because a template lists it.
+  Preserve branching research histories rather than inventing a linear lineage.
+
+On first use, introduce an established full term with its abbreviation, such as
+`Mixture-of-Experts (MoE)`, and explain its role rather than relying on the expansion
+alone. For acronym-focused lessons, retain the English expansion and Korean name
+in the note title and first definition. Honor acronym-first preferences such as
+`SFT (Supervised Fine-Tuning, 지도 미세조정)`; place common translations in aliases
+without claiming a single official translation.
+
+For paper comparisons, keep the system scale, experimental conditions, publication
+status, baseline, and metric denominator needed to interpret headline numbers.
+Adapt their presentation without dropping material evidence or uncertainty.
 
 ### Structured Explanations
 
-- Use descriptive subsections, numbered causal steps, and comparison tables so
-  the reader can distinguish inputs, outputs, assumptions, and tradeoffs.
+- Use paragraphs for connected reasoning, lists for procedures or parallel items,
+  and tables for comparisons. Add descriptive subsections when they help navigation.
+- When toggles are requested, group them around meaningful reader questions rather
+  than each analysis check. Preserve a readable explanation inside each toggle;
+  keep the central answer visible unless the user requests a fully collapsed format.
 - Include a fenced `mermaid` diagram in notes about multi-step mechanisms,
   training loops, architecture, or concept relationships when it clarifies the
   explanation. Keep it compatible with Obsidian and explain it in prose too.
@@ -110,8 +126,9 @@ denied, do not silently write to a project-local fallback or claim persistence.
 
 ### Create or Reuse a Concept Note
 
-Use [assets/concept-note.md](assets/concept-note.md) and one canonical file per
-meaningful concept.
+Use [assets/concept-note.md](assets/concept-note.md) as a flexible scaffold and keep
+one canonical file per meaningful concept. Preserve metadata and learning history;
+choose body headings for the question and omit unused placeholders or empty sections.
 
 - Name the file with a stable, established lowercase kebab-case slug.
 - Normalize established Korean and English names under `aliases`.
@@ -162,7 +179,12 @@ growing a code-analysis branch here.
 
 Before ending, verify that:
 
-- The answer covers definition, boundary, mechanism, and tradeoff.
+- The central question is answered at the requested depth, with enough explanation
+  for the reader to describe the key idea in their own words.
+- The mechanism is connected through causes and effects or a concrete example;
+  necessary terms are explained before the reader must reason with them.
+- Boundaries and tradeoffs that affect the answer remain visible, while irrelevant
+  checklist sections and repeated qualifications have been removed.
 - Claims are backed by verified primary sources at the right scope.
 - Facts, inference, and unchosen project options are distinguishable.
 - The canonical note was reused by title or alias when appropriate, unless the
@@ -171,4 +193,4 @@ Before ending, verify that:
   were changed when persistence was declined.
 - Related notes are linked without manufacturing relationships.
 - Acronym expansions and Korean names are present for acronym-focused lessons;
-  useful diagrams, reading guidance, and follow-up question examples are included.
+  diagrams, reading guidance, and follow-up questions are included only when useful.
