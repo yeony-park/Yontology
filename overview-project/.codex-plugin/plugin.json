@@ -1,0 +1,18 @@
+{
+  "name": "overview-project",
+  "version": "0.1.0",
+  "description": "Live local code maps with per-project snapshots and standalone HTML export",
+  "author": {
+    "name": "Local developer"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Overview Project",
+    "shortDescription": "Explore code structure and connections locally.",
+    "longDescription": "Analyze repositories, watch changes in a browser, browse local snapshots, and export a standalone HTML map.",
+    "developerName": "Local developer",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Help me use Overview Project."
+  }
+}
