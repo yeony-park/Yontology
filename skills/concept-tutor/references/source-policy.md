@@ -49,6 +49,11 @@ for the answer when an original source exists.
 
 ## Evidence states in notes
 
+Make these distinctions clear in the prose. The labels below are available for
+ambiguous or contested claims; they are not mandatory headings or paragraph
+prefixes. Keep qualifications that change a claim's meaning beside that claim,
+and place secondary verification detail in supporting material.
+
 - `확인됨`: directly supported by a cited primary source.
 - `추정`: a reasoned implication not directly claimed by the source; include
   what evidence would confirm it.

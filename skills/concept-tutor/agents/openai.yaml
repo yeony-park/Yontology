@@ -1,4 +1,4 @@
 interface:
   display_name: "개념 튜터"
   short_description: "공식 문서와 원 논문으로 개념 학습 노트를 만듭니다"
-  default_prompt: "Use $concept-tutor to research this concept from primary sources and create or update its canonical learning note."
+  default_prompt: "Use $concept-tutor to answer my concept question with a connected explanation at the requested depth, grounded in primary sources, and create or update its canonical learning note."
