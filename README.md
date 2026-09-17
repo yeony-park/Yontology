@@ -17,6 +17,22 @@
 | [Seed Docs Suite](skills/seed-docs-suite/SKILL.md) | 확정된 요구사항으로 PRD·화면 흐름·기능 명세·와이어프레임·권한 정책·ERD·API·QA 문서 8종을 작성하고 서로 일치하는지 확인합니다. | “승인된 Seed로 개발 문서 세트를 만들어줘.” |
 | [Session Analyzer](skills/session-analyzer/SKILL.md) | 선택한 스킬 지침과 Claude Code·Codex 실행 기록을 대조해 실제 도구 호출·파일 변경·결과 반영을 평가합니다. | “이 세션이 스킬 지침을 지켰는지 확인해줘.” |
 
+## Overview Project — 로컬 코드 지도
+
+[Overview Project](overview-project/README.md)는 파일 안의 클래스·함수를 코드 블록으로 탐색하고, 입출력·호출 관계·공유 전역변수의 읽기/쓰기를 확인하는 로컬 웹 도구입니다. 프로젝트 변경을 자동 분석하고, 사용자별 로컬 스냅샷을 보관하며, 공유용 단일 HTML을 내보냅니다.
+
+Node.js 20 이상, pnpm, Python 3.9 이상을 준비한 뒤 저장소 루트에서 실행합니다.
+
+```bash
+cd overview-project
+pnpm install --frozen-lockfile
+node cli/main.mjs serve /absolute/path/to/my-project
+```
+
+출력된 로컬 URL을 열고 `파일 → 클래스/함수 → 연결 펼치기` 순으로 탐색합니다. `표시 대상`에서 클래스·함수·전역변수 필터를 선택할 수 있습니다. 생성 데이터는 대상 프로젝트의 `.overview-project/`에 저장되며 Git에서 제외됩니다. CLI 명령, 화면 조작, 공유 시 주의사항은 [사용 설명서](overview-project/README.md)를 참고하세요.
+
+이 도구의 스킬은 아래 공통 설치 스크립트에 포함되지 않습니다. 자연어 실행이 필요하면 [Overview Project 스킬 설치](overview-project/README.md#codex-스킬)를 별도로 진행하세요.
+
 ## 다른 Mac에 설치
 
 Git과 Python 3.10 이상이 필요합니다. 원하는 **지속 보관할 로컬 경로**에 `main` 브랜치를 복제합니다.
