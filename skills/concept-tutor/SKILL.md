@@ -40,9 +40,14 @@ Resolve this SKILL.md through any symlinks to find the Yontology checkout (the p
 1. Identify the requested concept and intended depth. If an acronym has several
    plausible technical meanings that would change the answer, disambiguate it
    before writing a canonical note.
-2. Search existing concept-note `title` and `aliases` before creating anything.
-   Reuse the canonical note when the meaning matches; never fork a synonym into
-   a duplicate file.
+2. Follow [note discovery and roles](../../docs/note-library.md): search filenames,
+   titles, aliases, and relevant body text, then read the matching notes. Do not
+   rely on the index alone. Resolve a supplement to its canonical target.
+   For a simple concept question already answered there, say it is documented,
+   link the note and relevant section, and stop the full-lesson workflow. Reading
+   the note is sufficient; do not force a quiz or mark reading as completed.
+   Honor requests to explain again. For follow-ups, teach and persist only the
+   missing explanation rather than repeating or duplicating the whole lesson.
 3. Read [references/source-policy.md](references/source-policy.md) completely,
    then research the concept from primary sources. Use current browsing for
    claims that may have changed.
@@ -110,6 +115,13 @@ denied, do not silently write to a project-local fallback or claim persistence.
 
 ### Create or Reuse a Concept Note
 
+Apply the metadata and duplicate-resolution rules in
+[the note-library convention](../../docs/note-library.md). Record `type` and a
+one-line `summary`; use aliases and tags for names/topics. A learning map,
+bilingual reference, and concept explanation have different roles. Retain actual
+duplicates as linked supplements when they contain distinct examples or history;
+use a verified vault-relative `canonical` target and a reciprocal visible link.
+
 Use [assets/concept-note.md](assets/concept-note.md) and one canonical file per
 meaningful concept.
 
@@ -137,11 +149,16 @@ meaningful concept.
 
 Use [assets/index.md](assets/index.md) if the index is absent. Add or update one
 entry in `## 개념` and preserve `## 코드 리뷰` verbatim. Never duplicate an
-entry when a note is refreshed.
+entry when a note is refreshed. After writing, audit with
+`python3 <checkout>/scripts/sync_learning_index.py --section concepts` and append
+missing entries with `--write` when writes are authorized. Cover every note role
+in `concepts/`; do not silently omit translations, maps, or supplements. Keep the
+index maintenance scope within this section unless library-wide repair is requested.
 
 ### Report Note Links
 
-After writing, report clickable absolute Markdown paths and an Obsidian URI:
+After finding an existing note or writing one, report clickable absolute Markdown
+paths and an Obsidian URI:
 
 ```text
 obsidian://open?path=<percent-encoded-absolute-note-path>
@@ -162,11 +179,15 @@ growing a code-analysis branch here.
 
 Before ending, verify that:
 
-- The answer covers definition, boundary, mechanism, and tradeoff.
+- For an existing-note lookup, the matched scope was read and the user received
+  working note links; no redundant full lesson or invented read/mastery event was
+  required. The remaining teaching checks apply when actually teaching.
+- A new or expanded lesson covers definition, boundary, mechanism, and tradeoff.
 - Claims are backed by verified primary sources at the right scope.
 - Facts, inference, and unchosen project options are distinguishable.
-- The canonical note was reused by title or alias when appropriate, unless the
-  user opted out of persistence.
+- The canonical note was reused when appropriate, its document role is explicit,
+  and its primary index entry exists. Retained duplicates point directly to it.
+  Read-only lookups and persistence opt-outs do not require library repairs.
 - Only `concepts/` and the index's `## 개념` section were changed, or no files
   were changed when persistence was declined.
 - Related notes are linked without manufacturing relationships.

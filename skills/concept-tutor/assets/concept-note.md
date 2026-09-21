@@ -1,5 +1,7 @@
 ---
 title: "{{concept_title}}"
+type: concept
+summary: "{{one_sentence_definition}}"
 aliases:
   - "{{alias_1}}"
 tags:

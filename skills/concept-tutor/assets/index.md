@@ -2,6 +2,8 @@
 title: "Code Learning Index"
 aliases:
   - 코드 학습 지도
+type: learning-map
+summary: "개념 노트와 코드 리뷰를 찾는 학습 색인."
 tags:
   - code-review-tutor
   - concept-tutor

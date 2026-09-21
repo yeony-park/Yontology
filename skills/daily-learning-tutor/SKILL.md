@@ -31,6 +31,21 @@ Ask for narrowly scoped permission before writing outside an allowed workspace. 
 
 Read `references/quiz-policy.md` completely before running or modifying a session. Use `scripts/study_scheduler.py` for registration, due-card selection, score recording, and schedule validation; do not calculate cooldown dates by intuition.
 
+## Note roles and representatives
+
+Follow [the note-library convention](../../docs/note-library.md). Use the
+filesystem as well as the index to discover notes. New cards come from `concept`
+notes; do not treat a `learning-map`, `bilingual-reference`, or `supplement` as an
+independent concept merely because it lives in `concepts/`. For older notes with
+no `type`, inspect their content before classifying them. Follow a supplement's
+`canonical` link for new assignments and verify its target exists. Preserve
+existing card IDs, attempts, and source paths; role maintenance is not permission
+to delete cards or reset schedules. Existing cards tied to a supplement remain
+valid when their source section is intact. Avoid introducing duplicate objectives
+under the representative's slug. Linking/opening a note during a simple concept
+lookup does not satisfy this skill's explicit reading acknowledgement or prove
+mastery.
+
 ## Session workflow
 
 1. **Load durable state.** Read the learning index, canonical concept notes, today's session log if present, prior session logs, and scheduler state. If state is absent, initialize it with `study_scheduler.py init`.
