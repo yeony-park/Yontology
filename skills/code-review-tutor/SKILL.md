@@ -130,6 +130,13 @@ denied, do not write elsewhere or claim persistence.
 
 ### Create a Review Note
 
+Use [the note-library convention](../../docs/note-library.md) for metadata and
+links: `type: code-review`, a one-line `summary`, aliases, and topic tags. For a
+follow-up to an established review, update that review instead of creating a new
+initial-question note. Concept lookups use existing representative notes; a
+simple definition already covered there can be answered by linking the relevant
+section rather than spawning another lesson. Do not mark the note as read.
+
 Create one note for each initial code question under `code-reviews/` using
 [assets/review-note.md](assets/review-note.md).
 
@@ -158,7 +165,9 @@ in the review note.
 ### Maintain the Shared Index
 
 Use [assets/index.md](assets/index.md) if the index is absent. Add each review
-once under `## 코드 리뷰` and preserve `## 개념` verbatim.
+once under `## 코드 리뷰` and preserve `## 개념` verbatim. After saving, run
+`python3 <checkout>/scripts/sync_learning_index.py --section code-reviews`;
+use `--write` to append missing review entries when writes are authorized.
 
 ### Report Note Links
 
