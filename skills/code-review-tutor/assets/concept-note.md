@@ -1,9 +1,12 @@
 ---
 title: "{{canonical_title}}"
+type: concept
+summary: "{{one_sentence_definition}}"
 aliases:
   - "{{korean_or_alternate_name}}"
 tags:
   - concept
+  - "{{topic_tag}}"
   - code-review-tutor
 created: "{{created_at}}"
 updated: "{{updated_at}}"
@@ -58,3 +61,5 @@ status: learning
 ## 학습 이력
 
 - {{updated_at}} · {{learning_context}} · [[{{source_note_path}}]]
+
+<!-- Optional navigation: link an existing topic map under ## 탐색, with a return entry on the map. Semantic links need relationship descriptions. Workflow tags record provenance, not subject. -->
