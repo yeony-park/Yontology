@@ -164,6 +164,11 @@ in the review note.
 
 ### Maintain the Shared Index
 
+Keep subject tags separate from workflow provenance and explain semantic link
+relationships, following the shared note-library convention. The complete index
+has `type: index`; topic maps have `type: learning-map`. Do not treat the index as
+a parent concept or reorganize concept maps during a code-only review.
+
 Use [assets/index.md](assets/index.md) if the index is absent. Add each review
 once under `## 코드 리뷰` and preserve `## 개념` verbatim. After saving, run
 `python3 <checkout>/scripts/sync_learning_index.py --section code-reviews`;

@@ -44,7 +44,8 @@ list. Put real synonyms, Korean terms, and common abbreviations in `aliases`.
 
 | type | Purpose |
 | --- | --- |
-| `concept` | Representative explanation of a distinct concept |
+| `index` | Complete catalog for finding notes; not a lesson or prerequisite map |
+| `concept` | Representative explanation of a distinct concept, including a short term note |
 | `learning-map` | Reading order and relationships among separate concepts |
 | `bilingual-reference` | Source paragraphs paired with translations |
 | `supplement` | Retained same-concept material linked to a representative |
@@ -55,6 +56,56 @@ are not duplicates. Link them as related reading; do not use `canonical` to impl
 one supersedes the other. Preserve paragraph boundaries in bilingual references:
 one original paragraph followed by its translation, with lists/code preserved.
 Do not substitute links or summaries for supplied source text.
+
+## Separate navigation, meaning, and provenance
+
+- **Complete catalog:** `Code Learning Index.md` has `type: index`. Keep one
+  primary entry per note in the owned section, including maps and supplements.
+  The catalog answers “what exists?”; its links do not imply prerequisites.
+- **Topic navigation:** topic tags describe subject matter (for example,
+  `version-control` or `networking`). Reuse the library's existing vocabulary.
+  A `type: learning-map` note in `concepts/` explains scope, useful reading paths,
+  and how its linked notes differ. Reuse a suitable map before creating another;
+  do not create a map for every isolated term. A note may belong to several topics.
+- **Semantic relationships:** put a reason beside concept links, such as
+  “compares with”, “uses”, or “specializes”. Add reciprocal links when useful,
+  with a truthful relationship in each direction. Shared tags or shared authorship
+  alone do not establish a conceptual dependency. Keep map backlinks under
+  `## 탐색` separate from `## 연결된 개념`; navigation is not a parent concept.
+- **Authoring provenance:** `concept-tutor` and `code-review-tutor` identify the
+  workflow that produced material, not the subject or a conceptual parent.
+  Preserve established provenance; do not add a new authoring tag merely because
+  a maintenance pass touched a note. `terminology` is an optional note-style tag,
+  not a topic or a new document role. New concept notes need a meaningful topic
+  tag in addition to any workflow/style tags.
+
+A topic map should link existing notes with short navigation annotations rather
+than copy their definitions. Keep its contents compatible with the catalog:
+list the map itself once in `## 개념`; do not repeat its member entries there.
+New or substantially updated notes should link a suitable existing topic map,
+with a return entry on that map. If none fits, a topic tag is enough.
+
+For a requested library-wide reorganization, inventory filenames, roles, aliases,
+and content first. Preserve stable filenames, source material, learning history,
+quiz state, and unrelated sections. Review older index copies: retain unique
+annotations as a `supplement` with a direct `canonical` link to the main index
+and a visible reciprocal link. Do not silently delete them or treat them as a
+second live catalog. Snapshot affected files before bulk writes, check for
+concurrent edits, and verify catalog coverage, all added link targets, topic-map
+return links, and preservation afterward. Keep personal vault contents and
+machine paths out of public skill repositories.
+
+## Concise terminology notes
+
+A developer term or a standard's vocabulary is still a `concept`. Start with
+**definition → scope/context → example → confusing neighbor or limitation →
+primary source**. Record the defining tool, standard, or version when the meaning
+is context-dependent. Do not pad a short note with empty mechanism, history,
+diagram, or quiz sections. Grow the same canonical file when understanding deepens;
+do not keep separate glossary and full-lesson copies of the same definition.
+A comparison note is appropriate for a paired question; split only when each
+meaning needs independent explanation or review. A glossary or topic map links
+to these notes rather than maintaining another copy of their definitions.
 
 ## Resolve actual duplicates
 

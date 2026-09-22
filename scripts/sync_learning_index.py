@@ -13,6 +13,7 @@ from yontology_paths import load_paths
 
 SECTIONS = {"concepts": "개념", "code-reviews": "코드 리뷰"}
 ROLES = {
+    "index": "전체 색인",
     "concept": "개념", "learning-map": "학습 지도",
     "bilingual-reference": "원문 대역", "supplement": "보충",
     "code-review": "코드 리뷰",

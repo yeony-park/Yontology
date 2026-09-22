@@ -35,7 +35,7 @@ Read `references/quiz-policy.md` completely before running or modifying a sessio
 
 Follow [the note-library convention](../../docs/note-library.md). Use the
 filesystem as well as the index to discover notes. New cards come from `concept`
-notes; do not treat a `learning-map`, `bilingual-reference`, or `supplement` as an
+notes; do not treat an `index`, `learning-map`, `bilingual-reference`, or `supplement` as an
 independent concept merely because it lives in `concepts/`. For older notes with
 no `type`, inspect their content before classifying them. Follow a supplement's
 `canonical` link for new assignments and verify its target exists. Preserve

@@ -56,6 +56,15 @@ Resolve this SKILL.md through any symlinks to find the Yontology checkout (the p
 5. Teach first, then create or update the canonical Markdown note and index
    unless the user opted out of persistence.
 
+## Choose the note depth
+
+For a word, developer term, or standards term, use a concise canonical concept
+note: definition, context, example, confusion/limit, and verified primary source.
+Use [assets/term-note.md](assets/term-note.md). Keep `type: concept`; `terminology`
+is only an optional style tag. Expand the same file for a deeper follow-up rather
+than creating a separate glossary copy. The full lesson sequence below applies
+when mechanism or depth warrants it; short terms do not need every heading.
+
 ## Teach in This Order
 
 1. **한 줄 정의**: Give the shortest accurate explanation.
@@ -137,7 +146,13 @@ meaningful concept.
   notes, and preserve prior learning history and relevant source links.
 - If the same spelling names different concepts, keep separate qualified notes
   and explain the distinction instead of merging them.
-- Add bidirectional wikilinks to genuinely related concept notes.
+- Give each new note a meaningful subject tag; retain workflow tags as provenance.
+- Explain the relationship beside semantic links; add reciprocal links when useful.
+  A shared authoring tool is not a conceptual relationship.
+- Reuse suitable topic maps (`type: learning-map`) in `concepts/`, with navigation
+  backlinks under `## 탐색` and a return entry on the map. Use
+  [assets/topic-map.md](assets/topic-map.md) only when a new map adds useful
+  navigation. Topic maps link explanations rather than duplicate them.
 - Use vault-relative wikilinks for links stored between shared notes. Expand home-relative paths only for file access and chat links, so another Mac does not inherit this Mac's username.
 - A code source, project example, and code-review backlink are optional. When a
   code-review handoff supplies them, add them under `프로젝트·코드 연결` and
@@ -147,7 +162,11 @@ meaningful concept.
 
 ### Maintain the Shared Index
 
-Use [assets/index.md](assets/index.md) if the index is absent. Add or update one
+Keep the shared index a complete catalog (`type: index`), separate from topic
+maps and provenance tags. Follow the role separation and bulk-reorganization
+rules in [the shared convention](../../docs/note-library.md). Routine lessons
+update their own notes and relevant maps; do not reorganize the whole vault unless
+requested. Use [assets/index.md](assets/index.md) if absent. Add or update one
 entry in `## 개념` and preserve `## 코드 리뷰` verbatim. Never duplicate an
 entry when a note is refreshed. After writing, audit with
 `python3 <checkout>/scripts/sync_learning_index.py --section concepts` and append
@@ -182,14 +201,19 @@ Before ending, verify that:
 - For an existing-note lookup, the matched scope was read and the user received
   working note links; no redundant full lesson or invented read/mastery event was
   required. The remaining teaching checks apply when actually teaching.
-- A new or expanded lesson covers definition, boundary, mechanism, and tradeoff.
+- A full lesson covers definition, boundary, mechanism, and tradeoff; a concise
+  term note covers definition, context, example, confusion/limit, and source.
 - Claims are backed by verified primary sources at the right scope.
 - Facts, inference, and unchosen project options are distinguishable.
 - The canonical note was reused when appropriate, its document role is explicit,
   and its primary index entry exists. Retained duplicates point directly to it.
   Read-only lookups and persistence opt-outs do not require library repairs.
-- Only `concepts/` and the index's `## 개념` section were changed, or no files
-  were changed when persistence was declined.
-- Related notes are linked without manufacturing relationships.
+- Routine lessons change only `concepts/` and the index's `## 개념` section.
+  A requested library reorganization may also update catalog metadata/navigation
+  and retained index supplements; preserve unrelated sections. Persistence
+  opt-outs produce no file changes.
+- Subject tags, topic navigation, semantic links, and workflow provenance have
+  distinct roles. Added map links resolve and have return entries; semantic links
+  state their relationship without manufacturing dependencies.
 - Acronym expansions and Korean names are present for acronym-focused lessons;
   useful diagrams, reading guidance, and follow-up question examples are included.
