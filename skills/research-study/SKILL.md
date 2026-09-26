@@ -26,8 +26,9 @@ Resolve this SKILL.md through any symlinks to find the Yontology checkout (the p
   otherwise modify the source PDF.
 - Compute and record its SHA-256 before reading. Compute it again after the
   study turn and require the value to match.
-- Render or extract only into a temporary directory. Do not create a modified
-  PDF unless the user makes a separate explicit request.
+- Render or extract into a temporary directory first; copy visually verified
+  figure assets into the paper's Obsidian folder for persistent embedding.
+  Do not create a modified PDF unless the user makes a separate explicit request.
 - If the hash changes, stop and report the integrity failure.
 
 ## Establish the Reading Target
@@ -57,6 +58,47 @@ punctuation, symbols, capitalization, citations, and hyphenation. Preserve
 line breaks when changing them could alter meaning. If OCR or extraction is
 uncertain, label the uncertain characters and ask for confirmation instead of
 guessing.
+
+## Preserve Figures and Explain Visually
+
+When a studied passage refers to a figure, or the user asks about one, include
+that figure in the section note when possible, near the relevant explanation.
+
+- Preserve the supplied PDF's figure appearance. Prefer extracting the embedded
+  image without recompression when it contains the complete figure. If it omits
+  vector labels, overlays, or panels, render the page at a readable resolution
+  and crop the complete figure instead. Label this as a PDF rendering, not a
+  byte-identical extraction. Keep all panel labels, axes, legends, and notation.
+- Compare the saved asset against the rendered PDF page. Do not redraw,
+  translate inside, recolor, annotate, or use image generation to reconstruct
+  the original figure. Retain its original caption and put any Korean caption
+  translation or explanation separately below it.
+- Store verified originals under `assets/original/` inside the paper folder,
+  with names such as `figure-01-p02.png`. Embed them with vault-relative links
+  so they survive after temporary files are removed. Record the figure number,
+  PDF page, source PDF hash, and extraction/rendering method beside the embed.
+- If a faithful figure asset cannot be obtained, explain the limitation and
+  link to the source PDF page or embed a verified page rendering. Do not
+  silently substitute an illustration for the source figure.
+
+When the user struggles with a figure, or an example visual would materially
+clarify it, proactively create and show a supplementary visual rather than
+only offering to make one. Keep it tied to the specific point of confusion.
+
+- Use Mermaid for relationships, sequences, feedback loops, and state changes.
+  Use an available image-generation tool for concrete scenes, spatial examples,
+  or illustrations that would be clearer as an image; follow that tool's skill
+  when available. Verify the result against the intended explanation.
+- Label each visual `부연설명용 도식 — 논문 원본 아님` or
+  `부연설명용 생성 이미지 — 논문 원본 아님`. State what it illustrates and
+  which details are simplified or hypothetical. Do not invent experimental
+  measurements or imply the authors supplied the example.
+- Display the visual in chat and save it in the same section note. Keep Mermaid
+  as an editable `mermaid` code block; save generated image assets under
+  `assets/explanatory/` and embed them with vault-relative links. Keep original
+  figures and explanatory visuals separate, and reuse existing assets when
+  revisiting a figure. If a visual tool is unavailable, use a supported format
+  and state the limitation.
 
 ## Teach One Paragraph at a Time
 
@@ -144,11 +186,15 @@ Always write under:
 ```text
 $YONTOLOGY_NOTES_DIR/research-study/<paper-slug>/
 ├── 00-paper-index.md
-└── <section-order>-<section-slug>.md
+├── <section-order>-<section-slug>.md
+└── assets/                      # Create only when needed
+    ├── original/                # Extracted or rendered source figures
+    └── explanatory/             # Tutor-generated image assets
 ```
 
 Use [assets/paper-index.md](assets/paper-index.md) for the paper index and
-[assets/section-study.md](assets/section-study.md) for section notes.
+[assets/section-study.md](assets/section-study.md) for section notes. Omit its
+optional figure and supplementary-visual blocks when not applicable.
 
 - Keep the original PDF at its supplied path; do not copy it into the vault
   unless the user explicitly asks.
@@ -177,4 +223,8 @@ Before ending each turn, verify that:
 - Added theory is two or three relevant lines unless the user asked for depth.
 - Field terms are explained for a non-specialist.
 - Page, section, and external references are verified.
+- Relevant original figures are embedded when possible, visually checked, and
+  cited by figure number and page; any extraction limitation is explicit.
+- Supplementary visuals are clearly labeled, and saved assets or Mermaid blocks
+  remain available in the note with working vault-relative links.
 - The note contains the paragraph and exact resume point.
