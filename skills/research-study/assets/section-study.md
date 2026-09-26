@@ -11,32 +11,28 @@ section: "{{section_title}}"
 
 # {{section_title}}
 
+[[research-study/{{paper_slug}}/assets/vocabulary|배운 영단어 모아보기]]
+
 ## {{paragraph_id}} · PDF p.{{pdf_page}}
 
-### 논문 원문
+<!-- Repeat this pair for each passage of usually 2–3 related sentences, covering the full paragraph in order. -->
+**논문 원문 · {{unit_number}}**
 
-> {{verbatim_english_paragraph}}
+> {{verbatim_english_unit}}
+
+{{faithful_korean_unit_translation}}
+<!-- End repeated pairs. Place figures and tutor commentary after the pairs. -->
 
 <!-- Optional: omit when no figure is relevant. Repeat for multiple figures. -->
 ### 논문 원본 Figure {{figure_number}} · PDF p.{{figure_pdf_page}}
 
 ![[research-study/{{paper_slug}}/assets/original/{{figure_filename}}]]
 
-- 원본 출처: PDF p.{{figure_pdf_page}}, Figure {{figure_number}}
-- 원본 PDF SHA-256: `{{source_sha256}}`
-- 보존 방식: {{embedded_image_extraction_or_pdf_render_crop}}
-
 **원문 캡션**
 
 > {{verbatim_figure_caption}}
 
-**캡션 번역**
-
 {{faithful_korean_caption_translation}}
-
-### 번역
-
-{{faithful_korean_translation}}
 
 ### 비전공자를 위한 부연설명
 
@@ -55,11 +51,6 @@ section: "{{section_title}}"
 | 영단어 | 한국어 표현 | 이 논문에서의 뜻 |
 |---|---|---|
 | {{term}} | {{korean_term}} | {{field_specific_explanation}} |
-
-### 근거 자료
-
-- 이 논문: {{section_title}}, PDF p.{{pdf_page}}
-- [{{reference_title}}]({{verified_url}}) — {{why_relevant}}
 
 ### 한 문장 정리
 
