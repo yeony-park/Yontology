@@ -13,17 +13,12 @@ status: learning
 
 > {{definition}}
 
-## 사용 맥락
+<!-- This is a concise scaffold, not a required outline. Explain the term's
+context through a small example; include a confusion or limit only when it affects
+the answer. Use connected prose and add headings only when they help the reader.
+Omit unused placeholders and expand this same body for deeper follow-ups. -->
 
-{{defining_tool_standard_or_domain_and_scope}}
-
-## 예시
-
-{{small_example}}
-
-## 혼동 주의
-
-{{nearest_confusing_term_and_limit}}
+{{question_driven_explanation}}
 
 ## 근거 자료
 

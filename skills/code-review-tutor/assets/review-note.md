@@ -17,57 +17,23 @@ lines: "{{line_range}}"
 
 # {{title}}
 
-> {{one_sentence_summary}}
+> {{direct_answer_to_the_question}}
 
-## 질문
+<!-- This is a scaffold, not a required outline. Identify the question and source
+context in the explanation. Choose descriptive headings for the requested usage,
+behavior, design, or integration question; omit unused placeholders and sections.
+Follow a concrete input through relevant calls and state changes, explaining why
+each step happens. Use minimal excerpts or diagrams when they help the reader.
+Discuss dependencies, test seams, alternatives, and failure paths where material
+to the answer, without creating a chapter for every analysis check. Distinguish
+observed behavior from inferred intent in prose and keep essential qualifications
+beside the relevant claim. If toggles are requested, group by reader question and
+keep the central answer visible unless the user requests everything collapsed. -->
 
-{{user_question}}
+{{question_driven_explanation}}
 
-## 코드 맥락
-
-```{{language}}
-{{minimal_code_excerpt}}
-```
-
-- 위치: `{{source_path}}:{{line_range}}`
-- 주변 흐름: {{surrounding_context}}
-
-## 실행 흐름
-
-{{execution_flow}}
-
-## 호출·데이터·상태 관계
-
-- 호출자: {{callers}}
-- 피호출자: {{callees}}
-- 데이터 소유권과 상태 변화: {{data_and_state_flow}}
-- 외부 효과: {{side_effects}}
-
-## 결합도·응집도·의존성 방향
-
-{{coupling_cohesion_and_dependency_direction}}
-
-## 독립성·테스트 경계
-
-{{independence_substitution_and_test_seams}}
-
-## 왜 이 방식인가
-
-- 확인됨: {{verified_rationale}}
-- 추정: {{inferred_rationale}}
-- 대안과 트레이드오프: {{alternatives_and_tradeoffs}}
-
-## 런타임 위험
-
-{{runtime_risks_and_failure_paths}}
-
-## 검증 포인트
-
-{{verification_points}}
-
-## 연결된 개념 노트
-
-{{optional_concept_links}}
+<!-- Include source locations near the claims they support and link relevant
+existing concept notes where helpful. Preserve learning history on later updates. -->
 
 ## 근거 자료
 
