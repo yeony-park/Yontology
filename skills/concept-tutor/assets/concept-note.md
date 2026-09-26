@@ -1,9 +1,12 @@
 ---
 title: "{{concept_title}}"
+type: concept
+summary: "{{one_sentence_definition}}"
 aliases:
   - "{{alias_1}}"
 tags:
   - concept
+  - "{{topic_tag}}"
   - concept-tutor
 created: "{{created_at}}"
 updated: "{{updated_at}}"
@@ -48,3 +51,5 @@ relevant, distinguish versions, and avoid padding the list with redundant links.
 ## 학습 이력
 
 - {{updated_at}} · {{learning_event}}
+
+<!-- Optional navigation: link an existing topic map under ## 탐색, with a return entry on the map. Semantic links need relationship descriptions. Workflow tags record provenance, not subject. -->

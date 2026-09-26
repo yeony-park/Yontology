@@ -1,5 +1,7 @@
 ---
 title: "{{title}}"
+type: code-review
+summary: "{{one_sentence_summary}}"
 aliases:
   - "{{short_alias}}"
 tags:
