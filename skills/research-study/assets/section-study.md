@@ -17,6 +17,23 @@ section: "{{section_title}}"
 
 > {{verbatim_english_paragraph}}
 
+<!-- Optional: omit when no figure is relevant. Repeat for multiple figures. -->
+### 논문 원본 Figure {{figure_number}} · PDF p.{{figure_pdf_page}}
+
+![[research-study/{{paper_slug}}/assets/original/{{figure_filename}}]]
+
+- 원본 출처: PDF p.{{figure_pdf_page}}, Figure {{figure_number}}
+- 원본 PDF SHA-256: `{{source_sha256}}`
+- 보존 방식: {{embedded_image_extraction_or_pdf_render_crop}}
+
+**원문 캡션**
+
+> {{verbatim_figure_caption}}
+
+**캡션 번역**
+
+{{faithful_korean_caption_translation}}
+
 ### 번역
 
 {{faithful_korean_translation}}
@@ -24,6 +41,14 @@ section: "{{section_title}}"
 ### 비전공자를 위한 부연설명
 
 {{two_or_three_line_context}}
+
+<!-- Optional: omit unless a supplementary visual helps understanding. -->
+### 부연설명용 시각 자료 — 논문 원본 아님
+
+{{mermaid_code_block_or_explanatory_image_embed}}
+
+- 설명 목적: {{specific_point_illustrated}}
+- 단순화·가정: {{simplifications_or_hypothetical_details}}
 
 ### 핵심 영단어
 
