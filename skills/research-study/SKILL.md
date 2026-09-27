@@ -56,11 +56,18 @@ Follow the PDF visual-verification workflow:
    multi-column layout.
 5. Compare the original paragraph shown to the user against the rendering.
 
-Do not silently repair the original block. Preserve the printed spelling,
-punctuation, symbols, capitalization, citations, and hyphenation. Preserve
-line breaks when changing them could alter meaning. If OCR or extraction is
-uncertain, label the uncertain characters and ask for confirmation instead of
-guessing.
+Preserve the authors' wording, spelling, punctuation, symbols, capitalization,
+and citations, while reflowing prose for chat and Obsidian. Join lines wrapped
+only to fit the PDF column with spaces; do not reproduce those line breaks or
+force them with Markdown backslashes or HTML spacing entities. Remove a
+line-end hyphen only when visual verification confirms a word was split for
+layout, such as `in-` + `stead` becoming `instead`. Keep lexical hyphens such as
+`decision-making` and `trial-and-error`, including when they fall at a line end.
+This layout normalization is compatible with verbatim quotation; it does not
+permit correcting the authors' spelling or rewriting their text. Preserve
+paragraph boundaries and meaningful breaks in equations, code, lists, or other
+structured content. If a hyphen, OCR character, or extraction is uncertain,
+label the uncertainty and ask for confirmation instead of guessing.
 
 ## Preserve Figures and Explain Visually
 
@@ -123,7 +130,8 @@ For every paragraph, use this order:
    should be readable without opening the PDF alongside it. Do not collect a
    long paragraph's entire English text before translating or use a side-by-side table.
 3. Preserve every original word, punctuation mark, and citation in order across
-   the units; do not summarize, omit, duplicate, or rewrite the English. Translate
+   the units after the verified layout normalization above; do not summarize,
+   omit, duplicate, or rewrite the English. Translate
    each unit faithfully without adding claims. Unit breaks are presentation
    boundaries, not new paragraphs or separate reading-progress checkpoints.
 4. **비전공자를 위한 부연설명**: Add two or three concise lines explaining
@@ -248,8 +256,10 @@ Report both the clickable Markdown path and a percent-encoded
 Before ending each turn, verify that:
 
 - The source PDF hash is unchanged.
-- The English units together preserve the verified paragraph in order, and each
-  unit is immediately followed by its matching Korean translation.
+- The English units together preserve the verified paragraph in order after
+  layout-only reflow, retain lexical hyphens and meaningful breaks, and do not
+  reproduce PDF column wrapping. Each unit is immediately followed by its
+  matching Korean translation.
 - Translation and added explanation are visibly separated.
 - Added theory is two or three relevant lines unless the user asked for depth.
 - Field terms are explained for a non-specialist.
