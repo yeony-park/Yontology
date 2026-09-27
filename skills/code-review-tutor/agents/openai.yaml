@@ -1,4 +1,4 @@
 interface:
   display_name: "코드 리뷰 튜터"
   short_description: "구체적 코드의 흐름·의존성·독립성을 함께 검토합니다"
-  default_prompt: "Use $code-review-tutor to trace this concrete code target, assess its dependencies and independence, explain runtime risks, propose focused verification, and save a code-review note."
+  default_prompt: "Use $code-review-tutor to answer my question about this concrete code target with a clear explanation grounded in its execution and relevant tradeoffs, and save a code-review note."
