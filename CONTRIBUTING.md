@@ -20,6 +20,51 @@ Check existing issues and pull requests before opening a new one.
 
 Use the provided issue forms and write all descriptions in English.
 
+## Issue and Pull Request Labels
+
+Apply labels when creating or triaging an issue or pull request. This applies to
+maintainers and AI coding agents, including items created with the GitHub CLI or
+API. Before handing work back, verify that the labels match its final scope.
+
+Choose exactly one primary label:
+
+| Label | Meaning | Typical PR type |
+| --- | --- | --- |
+| `bug` | Correct incorrect instructions or unexpected behavior | `fix` |
+| `enhancement` | Add or improve a skill or capability | `feat` |
+| `documentation` | Explain existing behavior without changing it | `docs` |
+| `maintenance` | Repository upkeep, refactoring, tests, or formatting without a feature or bug fix | `chore`, `refactor`, `test`, `style` |
+
+Classify the effect of a change, not its file extension. A `SKILL.md` change that
+fixes tutor behavior is a `bug`; new skill behavior is an `enhancement`. Do not
+add `documentation` merely because the implementation is written in Markdown.
+
+Add all directly affected scope labels:
+
+| Label | Scope |
+| --- | --- |
+| `skill:code-review-tutor` | Code Review Tutor instructions, prompts, and templates |
+| `skill:concept-tutor` | Concept Tutor instructions, prompts, and templates |
+| `skill:daily-learning-tutor` | Daily Learning Tutor instructions and supporting tools |
+| `skill:research-study` | Research Study instructions and assets |
+| `area:note-library` | Shared note conventions, catalogs, topic maps, and index tooling |
+| `area:repository` | Contribution rules, GitHub templates, installation, and repository tooling |
+
+Reuse existing labels. Create another `skill:<skill-name>` or `area:<area-name>`
+only when an actual issue or PR needs that scope; give it an English description.
+Use the same scope labels on a linked issue and PR when they address the same
+work. Do not label unrelated skills just because they consume a shared format.
+
+Bug and feature issue forms supply their primary label. Add the scope labels
+after submission. Issues created through the CLI or API and all PRs need explicit
+labels; the PR template is a checklist, not automatic labeling.
+
+Keep labels on closed issues and merged PRs so completed work remains searchable.
+When scope changes, replace obsolete classification labels while preserving
+unrelated labels. Optional labels such as `duplicate`, `question`, `help wanted`,
+`good first issue`, `invalid`, and `wontfix` require a concrete reason. Use GitHub's
+open/closed/merged state instead of adding status labels, and do not infer priority.
+
 ## Branches and Commits
 
 Use `<type>/<short-kebab-case-description>` for branch names. Choose the type from `feat`, `fix`, `docs`, `style`, `refactor`, `test`, or `chore`, matching the commit types below.

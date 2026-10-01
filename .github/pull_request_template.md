@@ -17,4 +17,5 @@
 
 - [ ] I verified the changes locally and described the results above.
 - [ ] I updated relevant documentation.
+- [ ] I applied one primary label and the relevant scope labels from CONTRIBUTING.md.
 - [ ] No secrets or personal data are included.
