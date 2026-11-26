@@ -49,3 +49,7 @@ need that Mac's checkout to be updated separately.
 To opt out for a particular request or use an older checkout, the user can ask
 to use the local version without updating. Never imply a latest-version check
 was performed in that case.
+
+## Refresh installed skills on each Mac
+
+Run `python3 scripts/bootstrap.py --update` at a safe boundary, optionally with `--claude --prune-retired`, to check main and then register newly added skills. The existing helper itself still does not mutate links. Do not update while other agents are using this checkout. See [multi-device setup](multi-device.md) for the separate local configuration and provider setup. No scheduled updater is enabled.

@@ -10,9 +10,11 @@ from yontology_paths import load_paths
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--dest", type=Path)
+    parser.add_argument("--prune-retired", action="store_true", help="Remove only known retired links from this checkout")
     args = parser.parse_args()
     paths = load_paths()
-    sources = sorted((Path(__file__).resolve().parents[1] / "skills").glob("*/SKILL.md"))
+    skill_root = Path(__file__).resolve().parents[1] / "skills"
+    sources = sorted(skill_root.glob("*/SKILL.md"))
     if not sources:
         parser.error("No skills found beside this installer.")
     destination = (args.dest or paths["YONTOLOGY_SKILLS_DIR"]).expanduser().absolute()
@@ -34,6 +36,14 @@ def main():
     for source, target in pending:
         target.symlink_to(source, target_is_directory=True)
         print(f"Installed {source.name}")
+    if args.prune_retired:
+        # Never remove real directories, foreign links, or links to active skills.
+        for name in ("session-analyzer",):
+            target = destination / name
+            retired = skill_root / name
+            if target.is_symlink() and not retired.exists() and target.resolve() == retired:
+                target.unlink()
+                print(f"Removed retired link: {name}")
     print(f"Ready: {len(sources)} skills in {destination}. Keep this checkout in place.")
     vault = paths["YONTOLOGY_NOTES_DIR"]
     print(f"Notes: {vault} ({'present' if vault.is_dir() else 'not present yet'})")

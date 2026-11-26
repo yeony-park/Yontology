@@ -79,6 +79,16 @@ node cli/main.mjs serve /absolute/path/to/my-project
 
 이 도구의 스킬은 아래 공통 설치 스크립트에 포함되지 않습니다. 자연어 실행이 필요하면 [Overview Project 스킬 설치](overview-project/README.md#codex-스킬)를 별도로 진행하세요.
 
+## 여러 Mac에서 공통 환경 사용
+
+각 Mac의 안정적인 로컬 checkout은 `main`을 기준으로 유지하고, 중앙 스토리지는 지식·작업 상태의 원본으로 사용합니다. [기기별 설치 및 갱신 가이드](docs/multi-device.md)를 참고하세요. `bootstrap.py`는 초기 `.env` 생성, 안전한 업데이트, 신규 Skill 링크 등록을 지원하며 Hook·인증·마운트는 기기별로 설정합니다.
+
+```bash
+python3 scripts/bootstrap.py --update --claude --prune-retired
+```
+
+기존 `.env`와 다른 스킬은 덮어쓰지 않습니다. `--claude`는 별도 Claude 스킬 경로가 필요한 경우에만 사용하고, `--prune-retired`는 현재 checkout을 가리키는 제거된 Session Analyzer 링크만 정리합니다. 이 명령은 설치된 `main`에서 작업이 진행 중이지 않을 때 실행합니다. 자동 스케줄은 설치하지 않습니다.
+
 ## 다른 Mac에 설치
 
 Git과 Python 3.10 이상이 필요합니다. 원하는 **지속 보관할 로컬 경로**에 `main` 브랜치를 복제합니다.
@@ -104,7 +114,7 @@ python3 scripts/install_skills.py
 
 ## 스킬 사용 전 버전 확인
 
-모든 스킬은 작업을 시작하기 전에 설치된 `SKILL.md`의 실제 저장소를 찾아 `origin/main`과 Git 커밋을 비교하도록 안내합니다. 한 사용자 요청 안에서 같은 저장소는 한 번만 확인합니다. 이는 **에이전트가 따르는 스킬 지침**이며 앱이 강제하는 실행 훅은 아닙니다.
+기존 학습·프로젝트 스킬은 작업을 시작하기 전에 설치된 `SKILL.md`의 실제 저장소를 찾아 `origin/main`과 Git 커밋을 비교하도록 안내합니다. 한 사용자 요청 안에서 같은 저장소는 한 번만 확인합니다. 이는 **에이전트가 따르는 스킬 지침**이며 앱이 강제하는 실행 훅은 아닙니다.
 
 수동으로도 확인할 수 있습니다.
 
