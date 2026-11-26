@@ -16,7 +16,7 @@ Check existing issues and pull requests before opening a new one.
 
 - Use `[Bug]: <short description>` for incorrect skill instructions or unexpected behavior. Include the affected file, steps to reproduce, actual behavior, and expected behavior.
 - Use `[Feature]: <short description>` for a new skill or an improvement. Include the proposed work, the problem it solves, and the expected impact.
-- Small typo fixes and documentation changes may go directly to a pull request. Open an issue first for larger changes.
+- Every change, including small documentation fixes, must have a tracking issue before implementation. Reuse an existing issue when it covers the change.
 
 Use the provided issue forms and write all descriptions in English.
 
@@ -91,13 +91,21 @@ Write commit messages and pull request titles in English using:
 
 Examples: `feat: add code review skill`, `fix: clarify review prerequisites`, `docs: describe the skill collection`.
 
+## Issue-linked development workflow
+
+1. Search for an existing issue; create one if needed and apply the appropriate labels.
+2. Create a topic branch from `develop` and commit changes there. Do not push implementation commits directly to `develop` or `main`.
+3. Open a PR into `develop` with `Closes #<issue-number>` in the related issue section, matching labels, and actual verification results. Use `Related to #<issue-number>` for partial work.
+4. Merge only when authorized and after required checks and conflict review. GitHub closing keywords normally close issues only when a PR is merged into the default branch. For a completed issue merged into `develop`, verify the issue state and explicitly close it as completed if still open, recording the merged PR link. Do not close issues on PR creation or before successful merge.
+5. Promote `develop` into `main` through a separate release PR when authorized. Preserve history; do not rewrite previous commits to simulate a PR.
+
 ## Pull Requests
 
 Use the pull request template and include:
 
 - What changed and why it was needed.
 - How the change was verified and the results. For documentation-only changes, describe the checks performed; mark runtime tests as not applicable.
-- Related issues: use `Closes #123` when the PR resolves an issue, or `Related to #123` for partial work. Write `None` if there is no related issue.
+- Related issues: use `Closes #123` when the PR resolves an issue, or `Related to #123` for partial work. For release-only PRs, reference the included PRs and tracking issues; create a release issue if necessary.
 
 Write the entire pull request title and body in English, keeping the template headings intact.
 
