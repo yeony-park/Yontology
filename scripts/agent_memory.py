@@ -5,6 +5,7 @@ import fcntl
 import json
 import os
 import re
+import sys
 import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -81,7 +82,9 @@ def write(root, project, task, payload, expected):
             raise ValueError(f"Revision conflict: expected {expected}, found {current}")
         data = dict(payload, revision=current + 1, project=project, task=task,
                     updated_at=datetime.now(timezone.utc).isoformat())
-        body = "# Task " + task + "\n\n```json\n" + json.dumps(data, ensure_ascii=False, indent=2).replace("`", "\\u0060") + "\n```\n"
+        properties = {key: data[key] for key in ("project", "task", "status", "provider", "agent_id", "revision", "updated_at")}
+        frontmatter = "---\n" + "".join(key + ": " + json.dumps(value, ensure_ascii=False) + "\n" for key, value in properties.items()) + "---\n"
+        body = frontmatter + "# Task " + task + "\n\n```json\n" + json.dumps(data, ensure_ascii=False, indent=2).replace("`", "\\u0060") + "\n```\n"
         fd, temp = tempfile.mkstemp(dir=path.parent, prefix=".checkpoint-")
         try:
             with os.fdopen(fd, "w", encoding="utf-8") as stream:
@@ -103,7 +106,7 @@ def main():
         command.add_argument("project")
         command.add_argument("task")
         if name == "checkpoint":
-            command.add_argument("--input", required=True, type=Path)
+            command.add_argument("--input", required=True, type=Path, help="JSON file, or - for stdin")
             command.add_argument("--expected", required=True, type=int)
     args = parser.parse_args()
     root = memory_root()
@@ -113,7 +116,7 @@ def main():
     elif args.cmd == "show":
         print(json.dumps(read(checkpoint_path(root, args.project, args.task)), ensure_ascii=False, indent=2))
     else:
-        print(write(root, args.project, args.task, json.loads(args.input.read_text(encoding="utf-8")), args.expected))
+        print(write(root, args.project, args.task, json.load(sys.stdin) if str(args.input) == "-" else json.loads(args.input.read_text(encoding="utf-8")), args.expected))
 
 if __name__ == "__main__":
     try:

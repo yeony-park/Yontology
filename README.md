@@ -5,10 +5,10 @@ Paseo 기반 멀티 provider 작업 위임과 Obsidian 기반 영속 메모리, 
 ## 아키텍처
 
 <p align="center">
-  <img src="docs/assets/architecture.svg" alt="Yontology: Paseo, agent harness, providers, Obsidian memory, existing skills and future Notion integration" width="440" />
+  <img src="docs/assets/architecture.svg" alt="Yontology: Paseo, agent harness, providers, Obsidian memory and existing skills" width="440" />
 </p>
 
-Paseo가 에이전트 실행과 통신을 담당하고 Yontology는 작업 라우팅, 압축 인계, Obsidian 메모리와 Deep Inside 지침을 제공합니다. 동일 provider의 세부 작업은 native subagent를 우선 사용합니다. Notion은 후속 범위입니다.
+Paseo가 에이전트 실행과 통신을 담당하고 Yontology는 작업 라우팅, 압축 인계, Obsidian 메모리와 Deep Inside 지침을 제공합니다. 동일 provider의 세부 작업은 native subagent를 우선 사용합니다. Notion은 현재 연동 범위에서 제외합니다. 공식 Obsidian Connector의 Markdown·Bases·Canvas Skill을 재사용합니다.
 
 | 신규 스킬 | 역할 |
 | --- | --- |
@@ -22,12 +22,32 @@ Paseo가 에이전트 실행과 통신을 담당하고 Yontology는 작업 라�
 초기 구현은 명시적 체크포인트, Skill 기반 CLI 라우팅, opt-in Hook 템플릿입니다. 실제 Paseo 호스트의 프로필/모델 및 자동 전환은 별도 검증이 필요합니다. 기존 설치 후 다음을 실행하세요.
 
 ```bash
+ # 중앙 배포: 서버에서 init 또는 docs/storage.md의 remote_memory.py 사용
 python3 scripts/agent_memory.py init
 python3 scripts/render_hooks.py codex
 python3 scripts/render_hooks.py claude
 ```
 
 Hook 출력은 설정에 직접 덮어쓰지 않습니다. 기존 Hook에 병합하고 provider별 신뢰 등록을 확인하세요. `/deep-inside`는 명시적으로도 호출할 수 있습니다.
+
+## 중앙 스토리지
+
+```text
+Mac / Oracle / Other user
+        │ Tailscale · SMB / SSH
+        ▼
+Home Storage Server
+  ├─ User A: Documents (raw) / Obsidian (wiki, task)
+  ├─ User B: Documents (raw) / Obsidian (wiki, task)
+  └─ Shared: explicitly authorized files / Vault
+        │ Restic + rclone (versioned backup)
+        ▼
+     OneDrive
+```
+
+중앙 서버가 유일한 작업 원본입니다. 원본 자료는 Documents, Source Registry와 지식은 Obsidian에 보관합니다. Task 체크포인트는 서버에서 직접 실행하거나 SSH로 호출하며, OneDrive는 실시간 동기화가 아닌 백업용입니다. 각 사용자의 계정과 개인 Vault를 분리하고 공유 공간은 명시적으로 허용합니다. 실제 서버 구축과 백업 스케줄 설정은 별도 작업입니다.
+
+[중앙 스토리지 배포·권한·백업 정책](docs/storage.md) · [Obsidian 공식 Connector](https://obsidian.md/help/connectors)
 
 ## 스킬 목록
 
@@ -106,11 +126,12 @@ python3 scripts/check_skill_updates.py --skill skills/concept-tutor/SKILL.md
 | 변수 | 용도 | 예제 기본값 |
 | --- | --- | --- |
 | `YONTOLOGY_NOTES_DIR` | 개념·코드 리뷰·논문 노트, 학습 인덱스와 복습 상태를 보관하는 공통 폴더 | `~/Documents/Yontology/notes` |
+| `YONTOLOGY_RAW_DIR` | 원본 자료 루트 (Documents) | `~/Documents/Yontology/raw` |
 | `YONTOLOGY_SKILLS_DIR` | 스킬 설치 도구가 링크를 만드는 위치 | `~/.agents/skills` |
 | `YONTOLOGY_CLAUDE_DIR` | History Insight가 `projects/` 아래 세션을 읽는 Claude Code 설정 폴더 | `~/.claude` |
 | `YONTOLOGY_CODEX_DIR` | 기존 Codex 경로 호환 설정 | `~/.codex` |
 
-OneDrive 사용자는 자신의 동기화 폴더를 지정하면 됩니다. OneDrive는 필수가 아닙니다.
+중앙 스토리지 사용자는 마운트된 개인 Vault와 Documents 경로를 지정합니다. 아래 OneDrive 경로 예시는 기존 설치 호환용이며 신규 중앙 배포에서는 실시간 동기화를 사용하지 않습니다.
 
 ```dotenv
 YONTOLOGY_NOTES_DIR="~/OneDrive/Obsidian/Work/Documents"

@@ -4,8 +4,9 @@
   "load_order": [
     "task checkpoint",
     "wiki index",
-    "relevant sections",
-    "raw sources"
+    "relevant wiki sections",
+    "source registry",
+    "relevant raw sections"
   ],
   "checkpoint_on": [
     "milestone",
@@ -13,5 +14,14 @@
     "before compaction when possible"
   ],
   "single_writer_per_task": true,
-  "notion_enabled": false
+  "notion_enabled": false,
+  "storage": {
+    "preferred": "central",
+    "task_writes": "server_only_ssh",
+    "local_fallback_on_failure": false,
+    "knowledge_access": "authorized_mounted_vault",
+    "raw_root": "YONTOLOGY_RAW_DIR",
+    "backup": "external_versioned_onedrive",
+    "user_isolation": "server_accounts_and_permissions"
+  }
 }

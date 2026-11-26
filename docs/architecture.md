@@ -10,9 +10,13 @@ Yontology adds policy and persistent memory; Paseo owns agent creation, routing 
 
 The routing configuration records requested labels/effort, not real provider IDs. Discover on the specific daemon and create matching profiles in Settings → host → Agents. Use usage report status and account mapping; no quota guessing. The account quota is not token accounting. Configure approved fallback profiles before enabling delegation.
 
-Task markdown holds a JSON block for deterministic reads. Writes are atomic with optimistic revision checks and a local advisory lock; this is NOT a distributed lock. Cross-host transfer requires a shared/synced authorized vault and explicit owner handover. Preserve existing note layout. Never commit actual notes, checkpoint contents, credentials or session logs to the public repo.
+Task markdown holds a JSON block for deterministic reads. Writes are atomic with optimistic revision checks and a local advisory lock; this is NOT a distributed lock. Cross-host transfer uses a single authorized central storage root and server-side checkpoint execution over SSH, with explicit owner handover. See [storage design](storage.md). Local operation remains available for standalone setups only. Preserve existing note layout. Never commit actual notes, checkpoint contents, credentials or session logs to the public repo.
 
 Hooks are opt-in fragments, not auto-installed. UserPromptSubmit injects only a short constant instruction. SessionStart adds a reminder. Semantic checkpointing is a skill operation, not an inferred summary from a transcript. True automatic pre-compaction/stop checkpoints and quota-based dispatch automation need host integration tests; they are not claimed implemented. No remote process is started by installation.
+
+## Storage and official Obsidian integration
+
+Separate raw Documents from the Obsidian Vault. Source Registry links immutable originals by relative path; the Wiki stores verified knowledge. Use official Obsidian Markdown/Bases/Canvas skills rather than duplicating their format guidance. The home server is authoritative, with isolated per-user roots and a separately authorized shared scope. OneDrive is a backup destination, not a live synchronization layer. Bases reads the checkpoint frontmatter as a projection of JSON state; edits go through the checkpoint command. Notion is not a planned integration dependency.
 
 ## Local validation
 

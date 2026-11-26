@@ -13,3 +13,6 @@ Design inspirations only; no vendored code, runtime dependencies, or implied end
 | [Orca](https://orca.dev/) | Task-oriented orchestration (reference only) |
 | [Codex hooks](https://learn.chatgpt.com/docs/hooks) | Lifecycle hook contract |
 | [Claude Code hooks](https://code.claude.com/docs/en/hooks) | Lifecycle hook contract |
+| [Obsidian Connectors](https://obsidian.md/help/connectors) · [official skills](https://github.com/obsidianmd/obsidian-skills) | Markdown, Bases, Canvas and CLI guidance (reuse when installed) |
+| [Tailscale](https://tailscale.com/kb/) · [Samba](https://www.samba.org/) | Private network and user-scoped shares (deployment references only) |
+| [Restic](https://restic.readthedocs.io/) · [rclone](https://rclone.org/onedrive/) | Encrypted versioned offsite backups (deployment references only) |

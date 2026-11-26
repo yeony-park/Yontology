@@ -28,6 +28,7 @@ def load_paths(env_file=None):
 
     defaults = {
         "YONTOLOGY_NOTES_DIR": "~/Documents/Yontology/notes",
+        "YONTOLOGY_RAW_DIR": "~/Documents/Yontology/raw",
         "YONTOLOGY_SKILLS_DIR": "~/.agents/skills",
         "YONTOLOGY_CLAUDE_DIR": os.environ.get("CLAUDE_CONFIG_DIR", "~/.claude"),
         "YONTOLOGY_CODEX_DIR": os.environ.get("CODEX_HOME", "~/.codex"),
