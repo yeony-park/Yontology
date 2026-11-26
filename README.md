@@ -200,3 +200,28 @@ ADR과 프로젝트 결정 원장을 복사하고 내용 일치를 검증합니�
 | 개념 조사·근거 확인 | 사용하는 에이전트의 웹 검색·페이지 열람 기능 |
 
 포함된 Python 스크립트는 표준 라이브러리만 사용합니다. GitHub에는 개인 노트·원본 세션 로그·로그인 정보·가상환경을 넣지 않습니다. History Insight는 각 Mac에 실제로 남아 있는 기록을 분석하므로, 스킬을 설치하는 것만으로 다른 Mac의 과거 세션까지 생기지는 않습니다.
+
+## PR 자동화
+
+PR 생성·수정 시 GitHub Actions에서 Python 및 Overview Project 테스트를 실행합니다. [ClawSweeper](https://github.com/openclaw/clawsweeper)는 선택적 코드 리뷰 엔진으로 연동하며 기본값은 비활성화입니다. API 인증 및 실행 환경 검증 후 활성화할 수 있습니다. 리뷰 수정·재검증·병합은 프로젝트별 지침을 우선합니다. [설정 및 운영 가이드](docs/pr-automation.md)
+
+## References
+
+Yontology 설계에 참고한 원본 프로젝트입니다. 외부 코드를 일괄 이식하지 않으며, 실제 실행 의존성과 설계 참고 자료를 구분합니다.
+
+| 원본 프로젝트 | 참고·적용 범위 |
+| --- | --- |
+| [getpaseo/paseo](https://github.com/getpaseo/paseo) | CLI 멀티 provider 실행 및 위임 |
+| [Andrej Karpathy — LLM Wiki (original Gist)](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) | Raw Sources, Wiki, 지식 인덱스 |
+| [mattpocock/skills](https://github.com/mattpocock/skills) | 압축 컨텍스트 및 참조 기반 Handoff |
+| [obra/superpowers](https://github.com/obra/superpowers) | Task 분해, 서브 에이전트 및 검증 |
+| [anthropics/claude-quickstarts](https://github.com/anthropics/claude-quickstarts) | 장기 실행 및 세션 복구 |
+| [obsidianmd/obsidian-skills](https://github.com/obsidianmd/obsidian-skills) | 공식 Obsidian Skills 재사용 |
+| [gastownhall/beads](https://github.com/gastownhall/beads) | Task Memory 설계 참고 (미도입) |
+| [Orca](https://orca.dev/) | 작업 중심 오케스트레이션 참고 (공식 사이트) |
+| [openclaw/clawsweeper](https://github.com/openclaw/clawsweeper) | 선택한 PR 리뷰 엔진, opt-in 연동 |
+| [openclaw/clawpatch](https://github.com/openclaw/clawpatch) | 기능 단위 리뷰 비교 참고 (미도입) |
+| [openai/codex-action](https://github.com/openai/codex-action) | GitHub 리뷰 연동 비교 참고 (미도입) |
+| [karpathy/autoresearch](https://github.com/karpathy/autoresearch) | 평가·개선 루프 비교 참고 (미도입) |
+
+[전체 출처 및 인프라 레퍼런스](docs/references.md)

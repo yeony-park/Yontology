@@ -6,7 +6,7 @@ These conventions follow [gitropolis-ai](https://github.com/yeony-park/gitropoli
 
 ## Scope and Language
 
-These conventions apply to everyone contributing to this repository, including the repository owner and AI coding agents.
+These conventions apply to everyone contributing to this repository, including the repository owner and AI coding agents. Outside Yontology, explicit user instructions and the target project's existing applicable rules take precedence; Yontology conventions are fallback defaults, not mandatory cross-project rules.
 
 Write issue titles and bodies, pull request titles and bodies, and commit messages in English. The README remains in Korean.
 
@@ -98,6 +98,7 @@ Examples: `feat: add code review skill`, `fix: clarify review prerequisites`, `d
 3. Open a PR into `develop` with `Closes #<issue-number>` in the related issue section, matching labels, and actual verification results. Use `Related to #<issue-number>` for partial work.
 4. Merge only when authorized and after required checks and conflict review. GitHub closing keywords normally close issues only when a PR is merged into the default branch. For a completed issue merged into `develop`, verify the issue state and explicitly close it as completed if still open, recording the merged PR link. Do not close issues on PR creation or before successful merge.
 5. Promote `develop` into `main` through a separate release PR when authorized. Preserve history; do not rewrite previous commits to simulate a PR.
+6. Inspect CI and any reviewer findings, fix confirmed blockers in the topic branch, and re-run checks on the new head before merge. After merge, delete only the fully integrated topic branch; never delete main or develop. See [PR automation](docs/pr-automation.md).
 
 ## Pull Requests
 

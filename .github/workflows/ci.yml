@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, reopened, synchronize, ready_for_review]
+  push:
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: Python (${{ matrix.python }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Python syntax and tests
+        run: |
+          python -m compileall -q scripts hooks skills
+          python -m unittest discover -s tests -v
+          python -m unittest discover -s skills/daily-learning-tutor/tests -v
+
+  overview:
+    name: Overview Project
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Install pinned pnpm
+        run: npm install --global --ignore-scripts pnpm@10.24.0
+      - name: Install locked dependencies and test
+        working-directory: overview-project
+        run: |
+          pnpm install --frozen-lockfile --ignore-scripts
+          pnpm test

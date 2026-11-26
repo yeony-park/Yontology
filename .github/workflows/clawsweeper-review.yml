@@ -1,0 +1,93 @@
+name: ClawSweeper review (opt-in)
+
+# The base-branch workflow is trusted; the PR tree is only scanned/reviewed.
+# Never run a target checkout's scripts, dependencies, hooks or workflow here.
+on:
+  pull_request_target:
+    branches: [main, develop]
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clawsweeper-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    if: >-
+      vars.CLAWSWEEPER_ENABLED == 'true' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment: clawsweeper-review
+    steps:
+      - name: Checkout pinned upstream review engine
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: openclaw/clawsweeper
+          ref: 22265ff14ea73421cfaba18a17cca92a3c13d8e9 # v0.3.5
+          path: sweeper
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - name: Build trusted reviewer and install Codex
+        working-directory: sweeper
+        run: |
+          npm install --global --ignore-scripts pnpm@12.15.0 @openai/codex@0.164.0
+          pnpm install --frozen-lockfile --ignore-scripts
+          pnpm run build
+          pnpm setup:review-tools
+      - name: Obtain exact PR commits (no target code execution)
+        env:
+          REPO_URL: https://github.com/${{ github.repository }}.git
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          [[ "$BASE_SHA" =~ ^[0-9a-f]{40}$ && "$HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]
+          target="$RUNNER_TEMP/clawsweeper-target"
+          git init "$target"
+          git -C "$target" config core.hooksPath /dev/null
+          git -C "$target" remote add origin "$REPO_URL"
+          git -C "$target" fetch --no-tags origin "$BASE_SHA" "$HEAD_SHA"
+          git -C "$target" checkout --detach "$HEAD_SHA"
+          test "$(git -C "$target" rev-parse HEAD)" = "$HEAD_SHA"
+          git -C "$target" merge-base "$BASE_SHA" HEAD >/dev/null
+      - name: Authenticate dedicated review identity
+        env:
+          OPENAI_API_KEY: ${{ secrets.CLAWSWEEPER_OPENAI_API_KEY }}
+          CODEX_HOME: ${{ runner.temp }}/clawsweeper-codex-home
+        run: |
+          set -euo pipefail
+          test -n "$OPENAI_API_KEY"
+          mkdir -m 700 -p "$CODEX_HOME"
+          printf '%s' "$OPENAI_API_KEY" | codex login --with-api-key >/dev/null
+      - name: Run read-only ClawSweeper range review
+        working-directory: sweeper
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          TARGET_REPO: ${{ github.repository }}
+          REVIEW_MODEL: ${{ vars.CLAWSWEEPER_MODEL }}
+          CODEX_HOME: ${{ runner.temp }}/clawsweeper-codex-home
+        run: |
+          set -euo pipefail
+          test -n "$REVIEW_MODEL"
+          # The API secret is not injected into the review step. Upstream
+          # strips GitHub credentials and scans input before the model call.
+          pnpm local-review -- --target-dir "$RUNNER_TEMP/clawsweeper-target" \
+            --target-repo "$TARGET_REPO" --base "$BASE_SHA" \
+            --codex-model "$REVIEW_MODEL" --codex-reasoning-effort medium \
+            --codex-sandbox read-only --codex-timeout-ms 900000 \
+            > "$RUNNER_TEMP/clawsweeper-report.md"
+          test -s "$RUNNER_TEMP/clawsweeper-report.md"
+          # Review findings are advisory, not an approval or a merge gate.
+          head -c 60000 "$RUNNER_TEMP/clawsweeper-report.md" >> "$GITHUB_STEP_SUMMARY"
+      - name: Remove isolated model credentials
+        if: always()
+        env:
+          CODEX_HOME: ${{ runner.temp }}/clawsweeper-codex-home
+        run: rm -rf -- "$CODEX_HOME"

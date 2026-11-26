@@ -16,3 +16,7 @@ Design inspirations only; no vendored code, runtime dependencies, or implied end
 | [Obsidian Connectors](https://obsidian.md/help/connectors) · [official skills](https://github.com/obsidianmd/obsidian-skills) | Markdown, Bases, Canvas and CLI guidance (reuse when installed) |
 | [Tailscale](https://tailscale.com/kb/) · [Samba](https://www.samba.org/) | Private network and user-scoped shares (deployment references only) |
 | [Restic](https://restic.readthedocs.io/) · [rclone](https://rclone.org/onedrive/) | Encrypted versioned offsite backups (deployment references only) |
+| [ClawSweeper](https://github.com/openclaw/clawsweeper) · [v0.3.5](https://github.com/openclaw/clawsweeper/releases/tag/v0.3.5) | Selected upstream advisory review engine; opt-in workflow, not activated by default |
+| [Clawpatch](https://github.com/openclaw/clawpatch) | Feature-level review and patching (comparison only) |
+| [Codex Action](https://github.com/openai/codex-action) | Alternative GitHub Actions review (comparison only) |
+| [Autoresearch](https://github.com/karpathy/autoresearch) | Evaluation and iteration reference (comparison only, not a PR reviewer) |
