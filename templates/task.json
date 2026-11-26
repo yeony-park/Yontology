@@ -1,0 +1,21 @@
+{
+  "objective": "",
+  "status": "in_progress",
+  "provider": "",
+  "agent_id": "",
+  "repo": "",
+  "branch": "",
+  "worktree": "",
+  "commit": "",
+  "summary": "",
+  "completed": [],
+  "remaining": [],
+  "decisions": [],
+  "constraints": [],
+  "knowledge_refs": [],
+  "artifact_refs": [],
+  "acceptance_criteria": [],
+  "validation": [],
+  "blockers": [],
+  "next_action": ""
+}

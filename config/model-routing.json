@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "primary": "codex",
+  "fallback": "claude",
+  "profiles": {
+    "L0": {
+      "execution": "script"
+    },
+    "L1": {
+      "codex": {
+        "label": "Terra 6.1",
+        "effort": "high"
+      },
+      "claude": {
+        "label": "Haiku",
+        "effort": "xhigh"
+      }
+    },
+    "L2": {
+      "codex": {
+        "label": "Sol 6.2",
+        "effort": "medium"
+      },
+      "claude": {
+        "label": "Sonnet",
+        "effort": "high"
+      }
+    },
+    "L3": {
+      "codex": {
+        "label": "host-configured frontier profile",
+        "effort": "high"
+      },
+      "claude": {
+        "label": "Opus",
+        "effort": "medium"
+      }
+    },
+    "handoff": {
+      "codex": [
+        {
+          "label": "Sol 6.2",
+          "effort": "medium"
+        },
+        {
+          "label": "Terra 6.1",
+          "effort": "high"
+        }
+      ],
+      "claude": {
+        "label": "Haiku",
+        "effort": "xhigh"
+      }
+    }
+  },
+  "policy": {
+    "prefer_native_subagents": true,
+    "transport": "paseo_cli",
+    "unknown_quota": "manual_check",
+    "unsupported_effort": "require_approved_profile",
+    "model_ids": "resolve_on_host",
+    "max_retry": 1
+  }
+}

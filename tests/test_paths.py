@@ -62,13 +62,12 @@ class CheckoutIntegrationTests(unittest.TestCase):
                 "scripts/yontology_paths.py", "scripts/install_skills.py",
                 "skills/daily-learning-tutor/scripts/study_scheduler.py",
                 "skills/history-insight/scripts/session_corpus.py",
-                "skills/session-analyzer/scripts/normalize_trace.py",
             ]
             for name in helpers:
                 target = checkout / name
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(ROOT / name, target)
-            for name in ["daily-learning-tutor", "history-insight", "session-analyzer"]:
+            for name in ["daily-learning-tutor", "history-insight"]:
                 (checkout / "skills" / name / "SKILL.md").write_text(name)
             # A caller's unrelated .env must never override the checkout's configuration.
             (base / ".env").write_text('YONTOLOGY_NOTES_DIR="/wrong-location"\n')
@@ -81,7 +80,7 @@ class CheckoutIntegrationTests(unittest.TestCase):
 
             for machine in ["맥 A", "맥 B"]:
                 paths = {key: base / machine / child for key, child in {
-                    "YONTOLOGY_NOTES_DIR": "notes", "YONTOLOGY_SKILLS_DIR": "skills",
+                    "YONTOLOGY_NOTES_DIR": "notes", "YONTOLOGY_RAW_DIR": "raw", "YONTOLOGY_SKILLS_DIR": "skills",
                     "YONTOLOGY_CLAUDE_DIR": "claude", "YONTOLOGY_CODEX_DIR": "codex",
                 }.items()}
                 (checkout / ".env").write_text("".join(f'{key}="{value}"\n' for key, value in paths.items()))
@@ -100,7 +99,6 @@ class CheckoutIntegrationTests(unittest.TestCase):
                 self.assertTrue(override.is_file())
                 for relative, function, expected in [
                     (helpers[3], "default_claude_projects", paths["YONTOLOGY_CLAUDE_DIR"] / "projects"),
-                    (helpers[4], "codex_home", paths["YONTOLOGY_CODEX_DIR"]),
                 ]:
                     code = f"import runpy; print(runpy.run_path({str(checkout / relative)!r})[{function!r}]())"
                     self.assertEqual(run("-c", code).strip(), str(expected))

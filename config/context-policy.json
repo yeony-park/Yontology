@@ -1,0 +1,27 @@
+{
+  "initial_briefing_target_tokens": 4000,
+  "include_full_transcript": false,
+  "load_order": [
+    "task checkpoint",
+    "wiki index",
+    "relevant wiki sections",
+    "source registry",
+    "relevant raw sections"
+  ],
+  "checkpoint_on": [
+    "milestone",
+    "before voluntary handoff",
+    "before compaction when possible"
+  ],
+  "single_writer_per_task": true,
+  "notion_enabled": false,
+  "storage": {
+    "preferred": "central",
+    "task_writes": "server_only_ssh",
+    "local_fallback_on_failure": false,
+    "knowledge_access": "authorized_mounted_vault",
+    "raw_root": "YONTOLOGY_RAW_DIR",
+    "backup": "external_versioned_onedrive",
+    "user_isolation": "server_accounts_and_permissions"
+  }
+}
