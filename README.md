@@ -1,6 +1,33 @@
 # Yontology
 
-코드 학습, 논문 읽기, 프로젝트 기획과 작업 기록 분석에 사용할 수 있는 스킬 모음입니다. 스킬 지침과 필요한 스크립트·참조 문서·템플릿을 함께 제공합니다. 누구나 자신의 경로를 `.env`에 설정해서 사용할 수 있으며, 노트는 로컬 폴더나 OneDrive 등 원하는 위치에 보관할 수 있습니다.
+Paseo 기반 멀티 provider 작업 위임과 Obsidian 기반 영속 메모리, 기술 학습 및 프로젝트 스킬을 제공하는 개인용 Agent Harness입니다. 기존 학습·프로젝트 스킬을 유지하면서 작업 인계와 지식 재사용을 추가합니다.
+
+## 아키텍처
+
+<p align="center">
+  <img src="docs/assets/architecture.svg" alt="Yontology: Paseo, agent harness, providers, Obsidian memory, existing skills and future Notion integration" width="440" />
+</p>
+
+Paseo가 에이전트 실행과 통신을 담당하고 Yontology는 작업 라우팅, 압축 인계, Obsidian 메모리와 Deep Inside 지침을 제공합니다. 동일 provider의 세부 작업은 native subagent를 우선 사용합니다. Notion은 후속 범위입니다.
+
+| 신규 스킬 | 역할 |
+| --- | --- |
+| [Task Routing](skills/task-routing/SKILL.md) | 난이도 및 사용량 기반 provider 선택 |
+| [Task Handoff](skills/task-handoff/SKILL.md) | 증분 체크포인트 및 인계 |
+| [Knowledge Memory](skills/knowledge-memory/SKILL.md) | Obsidian LLM Wiki |
+| [Deep Inside](skills/deep-inside/SKILL.md) | 매 입력 전문가 관점·원자료·방법·독립 검증 프리플라이트 |
+
+[아키텍처](docs/architecture.md) · [설치 및 마이그레이션](docs/migration.md) · [레퍼런스](docs/references.md) · [모델 라우팅 정책](config/model-routing.json)
+
+초기 구현은 명시적 체크포인트, Skill 기반 CLI 라우팅, opt-in Hook 템플릿입니다. 실제 Paseo 호스트의 프로필/모델 및 자동 전환은 별도 검증이 필요합니다. 기존 설치 후 다음을 실행하세요.
+
+```bash
+python3 scripts/agent_memory.py init
+python3 scripts/render_hooks.py codex
+python3 scripts/render_hooks.py claude
+```
+
+Hook 출력은 설정에 직접 덮어쓰지 않습니다. 기존 Hook에 병합하고 provider별 신뢰 등록을 확인하세요. `/deep-inside`는 명시적으로도 호출할 수 있습니다.
 
 ## 스킬 목록
 
@@ -15,7 +42,6 @@
 | [Project Decision Journal](skills/project-decision-journal/SKILL.md) | 중요한 결정과 이유를 프로젝트 ADR에 기록하고, 노트 보관함에 사본과 인덱스를 만들어 다른 컴퓨터에서도 읽을 수 있게 합니다. | “이 기술을 선택한 이유를 기록하고 ADR도 공유해줘.” |
 | [Research Study](skills/research-study/SKILL.md) | 논문 PDF를 문단별로 읽으며 원문, 번역, 쉬운 설명과 용어를 정리하고 다음에 읽을 위치를 저장합니다. | “이 논문 초록부터 같이 읽자.” |
 | [Seed Docs Suite](skills/seed-docs-suite/SKILL.md) | 확정된 요구사항으로 PRD·화면 흐름·기능 명세·와이어프레임·권한 정책·ERD·API·QA 문서 8종을 작성하고 서로 일치하는지 확인합니다. | “승인된 Seed로 개발 문서 세트를 만들어줘.” |
-| [Session Analyzer](skills/session-analyzer/SKILL.md) | 선택한 스킬 지침과 Claude Code·Codex 실행 기록을 대조해 실제 도구 호출·파일 변경·결과 반영을 평가합니다. | “이 세션이 스킬 지침을 지켰는지 확인해줘.” |
 
 ## Overview Project — 로컬 코드 지도
 
@@ -50,7 +76,7 @@ python3 scripts/yontology_paths.py
 python3 scripts/install_skills.py
 ```
 
-설치 도구는 스킬 10개를 `YONTOLOGY_SKILLS_DIR`에 심볼릭 링크로 연결합니다. 같은 저장소를 대상으로 다시 실행해도 안전하며, 충돌하는 기존 스킬이 하나라도 있으면 변경 전에 중단합니다. 기존 파일은 직접 백업·정리한 뒤 설치하세요. 저장소를 이동하면 링크를 다시 연결해야 합니다. 공통 설정 코드를 사용하므로 스킬 폴더만 따로 복사하지 말고 저장소 전체를 유지하세요. 업데이트는 이 저장소에서 `git pull --ff-only`로 받습니다.
+설치 도구는 스킬을 `YONTOLOGY_SKILLS_DIR`에 심볼릭 링크로 연결합니다. 같은 저장소를 대상으로 다시 실행해도 안전하며, 충돌하는 기존 스킬이 하나라도 있으면 변경 전에 중단합니다. 기존 파일은 직접 백업·정리한 뒤 설치하세요. 저장소를 이동하면 링크를 다시 연결해야 합니다. 공통 설정 코드를 사용하므로 스킬 폴더만 따로 복사하지 말고 저장소 전체를 유지하세요. 업데이트는 이 저장소에서 `git pull --ff-only`로 받습니다.
 
 이전에 `~/.codex/skills/` 또는 플러그인으로 설치한 동명 스킬이 있다면 중복 활성화되지 않도록 기존 설치를 확인하세요. 설치 도구가 이전 스킬이나 플러그인을 제거하지는 않습니다. Codex에서 목록이 갱신되지 않으면 재시작하세요. 설치 위치와 갱신 동작은 [공식 스킬 문서](https://learn.chatgpt.com/docs/build-skills)를 따릅니다.
 
@@ -82,7 +108,7 @@ python3 scripts/check_skill_updates.py --skill skills/concept-tutor/SKILL.md
 | `YONTOLOGY_NOTES_DIR` | 개념·코드 리뷰·논문 노트, 학습 인덱스와 복습 상태를 보관하는 공통 폴더 | `~/Documents/Yontology/notes` |
 | `YONTOLOGY_SKILLS_DIR` | 스킬 설치 도구가 링크를 만드는 위치 | `~/.agents/skills` |
 | `YONTOLOGY_CLAUDE_DIR` | History Insight가 `projects/` 아래 세션을 읽는 Claude Code 설정 폴더 | `~/.claude` |
-| `YONTOLOGY_CODEX_DIR` | Session Analyzer가 세션과 로컬 상태 DB를 찾는 Codex 데이터 폴더 | `~/.codex` |
+| `YONTOLOGY_CODEX_DIR` | 기존 Codex 경로 호환 설정 | `~/.codex` |
 
 OneDrive 사용자는 자신의 동기화 폴더를 지정하면 됩니다. OneDrive는 필수가 아닙니다.
 
@@ -135,11 +161,11 @@ ADR과 프로젝트 결정 원장을 복사하고 내용 일치를 검증합니�
 | 항목 | 경로 또는 준비 사항 |
 | --- | --- |
 | Claude Code 기록 | `YONTOLOGY_CLAUDE_DIR/projects`; 분석 대상은 이 Mac에 실제로 남아 있는 세션 |
-| Codex 기록 | `YONTOLOGY_CODEX_DIR`; 현재 작업 분석에는 실제 Codex 실행 환경과 로컬 상태 DB 필요 |
+| Codex 경로 | `YONTOLOGY_CODEX_DIR`; 기존 설정 호환용 |
 | 프로젝트 PRD·Seed·ADR | 실행 대상으로 지정한 프로젝트의 `docs/`; 프로젝트 저장소를 별도로 복제 |
 | 논문 원본 PDF | 사용자가 지정한 파일. 다른 Mac에서도 읽으려면 PDF도 공유하고 논문 인덱스의 경로 확인 |
 | Define Project | 공식 Ouroboros 런타임/플러그인을 각 Mac에 별도 설치·활성화 |
 | Research Study | PDF 추출용 `pdfplumber` 또는 `pypdf`, 페이지 렌더링용 Poppler (`pdftoppm`, `pdfinfo`) |
 | 개념 조사·근거 확인 | 사용하는 에이전트의 웹 검색·페이지 열람 기능 |
 
-포함된 Python 스크립트는 표준 라이브러리만 사용합니다. GitHub에는 개인 노트·원본 세션 로그·로그인 정보·가상환경을 넣지 않습니다. History Insight와 Session Analyzer는 각 Mac에 실제로 남아 있는 기록을 분석하므로, 스킬을 설치하는 것만으로 다른 Mac의 과거 세션까지 생기지는 않습니다.
+포함된 Python 스크립트는 표준 라이브러리만 사용합니다. GitHub에는 개인 노트·원본 세션 로그·로그인 정보·가상환경을 넣지 않습니다. History Insight는 각 Mac에 실제로 남아 있는 기록을 분석하므로, 스킬을 설치하는 것만으로 다른 Mac의 과거 세션까지 생기지는 않습니다.
